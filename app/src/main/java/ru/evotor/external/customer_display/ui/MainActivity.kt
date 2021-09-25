@@ -9,9 +9,14 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_container, CustomerDisplayFragment.newInstance())
+//                .addToBackStack(CustomerDisplayFragment::class.java.canonicalName)
+//                .commit()
+
         supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, CustomerDisplayFragment.newInstance())
-                .addToBackStack(CustomerDisplayFragment::class.java.canonicalName)
-                .commit()
+            .replace(R.id.main_container, StartFragment())
+            .addToBackStack(StartFragment::class.java.canonicalName)
+            .commit()
     }
 }
