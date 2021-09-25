@@ -6,6 +6,15 @@
     android:background="@color/background"
     tools:context=".ui.StartFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/startToolbar"
+        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        app:titleTextColor="@color/text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/start_title"
+        app:titleTextAppearance="@style/CustomToolbarText" />
+
     <Button
         android:id="@+id/start_button_start_customer"
         style="@style/CustomButton"

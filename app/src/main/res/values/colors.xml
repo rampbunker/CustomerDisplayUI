@@ -10,6 +10,7 @@
 
 
     <color name="background">#1A1818</color>
+    <color name="status_bar_background">#151313</color>
     <color name="text">#FFFFFF</color>
     <color name="accent">#21C68B</color>
 </resources>
