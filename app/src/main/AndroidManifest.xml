@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.evotor.external.customer_display">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="ru.evotor.permissions.ACCESS_KKM_SERVICE" />
+    <uses-permission android:name="ru.evotor.permissions.KKM_DRIVER" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="ru.evotor.permission.BINARY_NETWORK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CustomerDisplayUI"
+        android:name=".CustomerDisplayApp">
+        <activity android:name="ru.evotor.external.customer_display.ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.EVOTOR" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="ru.evotor.launcher.BACKGROUND_COLOR"
+                android:value="#FF6633" />
+        </activity>
+
+        <meta-data
+            android:name="app_uuid"
+            android:value="c35f2b35-1740-483f-9e01-cea8f1ff524c" />
+    </application>
+</manifest>
