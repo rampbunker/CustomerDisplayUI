@@ -1,9 +1,18 @@
 package ru.evotor.external.customer_display.ui
 
 import android.os.Bundle
+import android.text.Annotation
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.SpannedString
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_start.*
 import ru.evotor.external.customer_display.R
@@ -23,7 +32,7 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainActivity.setSupportActionBar(startToolbar)
-
+        setTextWithLinkForEmptyGallery()
         startGalleryAdapter.bindPictures(getMockPictures())
         startGalleryRV?.apply {
             layoutManager = CenterZoomLayoutManager(requireContext())
@@ -43,5 +52,45 @@ class StartFragment : Fragment() {
             "https://upload.wikimedia.org/wikipedia/commons/7/7f/Rachel_Weisz_2018.jpg",
             "https://toronto.citynews.ca/wp-content/blogs.dir/sites/10/2019/06/NYET414-618_2019_013921.jpg"
         )
+    }
+
+
+    private fun setTextWithLinkForEmptyGallery() {
+        val fullText = getText(R.string.start_empty_text) as SpannedString
+        val spannableString = SpannableString(fullText)
+        val annotations = fullText.getSpans(0, fullText.length, Annotation::class.java)
+
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+//            Перейти в настройки
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = false
+            }
+        }
+        annotations?.find { it.value == "settings_link" }?.let {
+            spannableString.apply {
+                setSpan(
+                    clickableSpan,
+                    fullText.getSpanStart(it),
+                    fullText.getSpanEnd(it),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(requireContext(), R.color.accent)
+                    ),
+                    fullText.getSpanStart(it),
+                    fullText.getSpanEnd(it),
+                    0
+                )
+            }
+        }
+
+        start_text_empty_gallery.apply {
+            text = spannableString
+            movementMethod = LinkMovementMethod.getInstance()
+        }
     }
 }
