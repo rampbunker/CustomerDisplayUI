@@ -52,6 +52,9 @@ dependencies {
     api "com.google.dagger:dagger-android:2.28.1"
     api "com.google.dagger:dagger-android-support:2.28.1"
 
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
