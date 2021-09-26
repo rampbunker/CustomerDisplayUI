@@ -12,6 +12,7 @@ import ru.evotor.external.customer_display.R
 class StartFragment : Fragment() {
 
     private val mainActivity by lazy { activity as MainActivity }
+    private val startGalleryAdapter = StartGalleryAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,5 +23,25 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainActivity.setSupportActionBar(startToolbar)
+
+        startGalleryAdapter.bindPictures(getMockPictures())
+        startGalleryRV?.apply {
+            layoutManager = CenterZoomLayoutManager(requireContext())
+            adapter = startGalleryAdapter
+            addItemDecoration(BoundsOffsetDecoration())
+        }
+    }
+
+    //  !!! Delete Mock Data Source !!!
+    fun getMockPictures(): List<String> {
+        return listOf(
+            "https://upload.wikimedia.org/wikipedia/commons/d/d9/Robin_Wright_Cannes_2017_%28cropped%29.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/2/2c/Connie_Nielsen_by_Gage_Skidmore.jpg",
+            "https://st.kp.yandex.net/im/kadr/1/2/4/kinopoisk.ru-Kenneth-Branagh-1241673.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/c/c5/Pedro_Pascal_by_Gage_Skidmore.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/8/84/David_Harbour_by_Gage_Skidmore.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/7/7f/Rachel_Weisz_2018.jpg",
+            "https://toronto.citynews.ca/wp-content/blogs.dir/sites/10/2019/06/NYET414-618_2019_013921.jpg"
+        )
     }
 }
