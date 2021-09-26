@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.abs
+import kotlin.math.min
 
 class CenterZoomLayoutManager(
     context: Context,
@@ -32,9 +34,9 @@ class CenterZoomLayoutManager(
         val d1 = mShrinkDistance * midpoint
         for (i in 0 until childCount) {
             val child = getChildAt(i) as View
-            val d = Math.min(
+            val d = min(
                 d1,
-                Math.abs(midpoint - (getDecoratedRight(child) + getDecoratedLeft(child)) / 2f)
+                abs(midpoint - (getDecoratedRight(child) + getDecoratedLeft(child)) / 2f)
             )
             val scale = 1f - mShrinkAmount * d / d1
             child.scaleX = scale

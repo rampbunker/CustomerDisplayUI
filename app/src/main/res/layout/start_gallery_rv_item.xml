@@ -8,4 +8,4 @@
     android:scaleType="centerCrop"
     android:layout_margin="16dp"
     tools:src="@mipmap/ic_launcher_round"
-    tools:ignore="MissingDefaultResource" />
+    tools:ignore="ContentDescription,MissingDefaultResource" />

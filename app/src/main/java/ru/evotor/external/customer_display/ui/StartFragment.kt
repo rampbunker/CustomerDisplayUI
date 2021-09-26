@@ -42,7 +42,7 @@ class StartFragment : Fragment() {
     }
 
     //  !!! Delete Mock Data Source !!!
-    fun getMockPictures(): List<String> {
+    private fun getMockPictures(): List<String> {
         return listOf(
             "https://upload.wikimedia.org/wikipedia/commons/d/d9/Robin_Wright_Cannes_2017_%28cropped%29.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/2/2c/Connie_Nielsen_by_Gage_Skidmore.jpg",
