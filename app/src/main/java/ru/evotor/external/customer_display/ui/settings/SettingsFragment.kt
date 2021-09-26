@@ -1,4 +1,4 @@
-package ru.evotor.external.customer_display.ui
+package ru.evotor.external.customer_display.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.ui.MainActivity
 
 
 class SettingsFragment : Fragment() {

@@ -1,4 +1,4 @@
-package ru.evotor.external.customer_display.ui
+package ru.evotor.external.customer_display.ui.display
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package ru.evotor.external.customer_display.ui
+package ru.evotor.external.customer_display.ui.start
 
 import android.os.Bundle
 import android.text.Annotation
@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_start.*
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.ui.MainActivity
 
 
 class StartFragment : Fragment() {

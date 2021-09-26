@@ -1,4 +1,4 @@
-package ru.evotor.external.customer_display.ui
+package ru.evotor.external.customer_display.ui.start
 
 import android.graphics.Rect
 import android.view.View

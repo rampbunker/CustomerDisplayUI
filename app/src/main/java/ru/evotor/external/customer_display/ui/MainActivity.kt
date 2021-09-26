@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import dagger.android.support.DaggerAppCompatActivity
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.ui.start.StartFragment
 
 class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +17,7 @@ class MainActivity : DaggerAppCompatActivity() {
 //                .commit()
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, SettingsFragment())
+            .replace(R.id.main_container, StartFragment())
             .addToBackStack(StartFragment::class.java.canonicalName)
             .commit()
     }
