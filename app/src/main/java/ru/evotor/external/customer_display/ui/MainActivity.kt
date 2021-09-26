@@ -16,7 +16,7 @@ class MainActivity : DaggerAppCompatActivity() {
 //                .commit()
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, StartFragment())
+            .replace(R.id.main_container, SettingsFragment())
             .addToBackStack(StartFragment::class.java.canonicalName)
             .commit()
     }
