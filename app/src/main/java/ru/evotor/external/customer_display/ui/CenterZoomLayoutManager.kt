@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CenterZoomLayoutManager(
     context: Context,
-    private val mShrinkDistance: Float = 0.9f,
-    private val mShrinkAmount: Float = 0.15f
+    private val mShrinkDistance: Float = 1.0f,
+    private val mShrinkAmount: Float = 0.25f
 ) : LinearLayoutManager(context, HORIZONTAL, false) {
     override fun onLayoutCompleted(state: RecyclerView.State?) {
         super.onLayoutCompleted(state)
