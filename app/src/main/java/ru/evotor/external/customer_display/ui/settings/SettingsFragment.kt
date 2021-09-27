@@ -21,6 +21,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(settingsToolbar)
         mainActivity.supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -29,7 +30,10 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.settings_menu, menu)
+        inflater.inflate(R.menu.main_menu, menu)
+        menu.add(Menu.NONE, 2, Menu.NONE, R.string.settings_help_hint)
+            .setIcon(R.drawable.ic_help)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

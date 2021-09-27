@@ -9,9 +9,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_start.*
@@ -32,6 +30,7 @@ class StartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(startToolbar)
         setTextWithLinkForEmptyGallery()
         startGalleryAdapter.bindPictures(getMockPictures())
@@ -40,6 +39,14 @@ class StartFragment : Fragment() {
             adapter = startGalleryAdapter
             addItemDecoration(BoundsOffsetDecoration())
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        menu.add(Menu.NONE, 1, Menu.NONE, R.string.start_settings_hint)
+            .setIcon(R.drawable.ic_settings)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     //  !!! Delete Mock Data Source !!!
