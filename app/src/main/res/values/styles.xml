@@ -9,5 +9,6 @@
 
     <style name="CustomToolbarText" parent="@style/Base.TextAppearance.AppCompat.Title">
         <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/roboto_500</item>
     </style>
 </resources>
