@@ -19,6 +19,7 @@
         android:id="@+id/settings_button_add_pictures"
         style="@style/CustomButton"
         android:layout_width="match_parent"
+        android:fontFamily="@font/roboto_500"
         android:background="@color/accent"
         android:text="@string/settings_button_add_pictures"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -26,20 +27,20 @@
     <LinearLayout
         android:id="@+id/settings_help_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginHorizontal="32dp"
         app:layout_constraintBottom_toTopOf="@+id/settings_button_add_pictures"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"
-        android:visibility="gone"
-        tools:visibility="gone">
+        android:visibility="visible"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/settings_icon_image_search"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginTop="200dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_image_search"
             tools:ignore="ContentDescription" />
@@ -47,14 +48,16 @@
         <TextView
             android:id="@+id/settings_text_help"
             android:layout_width="match_parent"
+            android:textAlignment="textStart"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:paddingHorizontal="32dp"
+            android:lineSpacingExtra="6dp"
             android:gravity="center_horizontal"
             android:text="@string/settings_empty_text"
             android:textColor="@color/text"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="RtlCompat" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -65,5 +68,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"
-        android:visibility="visible" />
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>
