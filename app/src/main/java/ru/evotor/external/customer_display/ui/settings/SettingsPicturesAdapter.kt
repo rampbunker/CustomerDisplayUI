@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import ru.evotor.external.customer_display.R
 
+
 class SettingsPicturesAdapter :
     RecyclerView.Adapter<SettingsPicturesAdapter.SettingsPicturesViewHolder>() {
     private var dataset = listOf<String>()
@@ -31,7 +32,7 @@ class SettingsPicturesAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingsPicturesViewHolder =
         SettingsPicturesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.start_gallery_rv_item, parent, false)
+                .inflate(R.layout.settings_pictures_rv_item, parent, false)
         )
 
     inner class SettingsPicturesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -39,7 +40,9 @@ class SettingsPicturesAdapter :
         private val fileName by lazy { view.findViewById<TextView>(R.id.settingsGalleryFileName) }
 
         fun setData(data: String) {
-            fileName.text = "375468975.jpeg"
+            fileName.text = data
+//            val file: File = (Environment.getExternalStorageDirectory()
+
             Glide.with(itemView.context)
                 .load(data)
                 .transition(DrawableTransitionOptions.withCrossFade())
