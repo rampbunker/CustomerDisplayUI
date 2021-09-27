@@ -2,10 +2,10 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/start_gallery_picture"
-    android:layout_width="135dp"
-    android:layout_height="230dp"
+    android:layout_width="161dp"
+    android:layout_height="275dp"
     android:layout_gravity="center"
     android:scaleType="centerCrop"
-    android:layout_margin="16dp"
+    android:layout_margin="4dp"
     tools:src="@mipmap/ic_launcher_round"
     tools:ignore="ContentDescription,MissingDefaultResource" />
