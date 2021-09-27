@@ -8,6 +8,7 @@
     <uses-permission android:name="ru.evotor.permissions.KKM_DRIVER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="ru.evotor.permission.BINARY_NETWORK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
