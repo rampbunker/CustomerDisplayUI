@@ -15,4 +15,5 @@
     <string name="settings_delay">Задержка между слайдами</string>
     <string name="settings_in_rotation">В ротации</string>
     <string name="settings_other">Остальные</string>
+    <string name="settings_help_hint">Помощь</string>
 </resources>
