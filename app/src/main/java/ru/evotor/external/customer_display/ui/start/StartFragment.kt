@@ -70,7 +70,7 @@ class StartFragment : Fragment() {
 
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-//            Перейти в настройки
+                mainActivity.goToSettings()
             }
 
             override fun updateDrawState(ds: TextPaint) {

@@ -29,10 +29,7 @@ class MainActivity : DaggerAppCompatActivity() {
         return when (item.itemId) {
             1 -> {
                 Toast.makeText(this, "go to settings", Toast.LENGTH_SHORT).show()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_container, SettingsFragment())
-                    .addToBackStack(StartFragment::class.java.canonicalName)
-                    .commit()
+                goToSettings()
                 true
             }
             2 -> {
@@ -41,5 +38,12 @@ class MainActivity : DaggerAppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun goToSettings() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, SettingsFragment())
+            .addToBackStack(StartFragment::class.java.canonicalName)
+            .commit()
     }
 }
