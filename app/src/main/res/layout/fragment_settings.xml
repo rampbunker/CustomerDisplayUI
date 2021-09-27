@@ -19,8 +19,8 @@
         android:id="@+id/settings_button_add_pictures"
         style="@style/CustomButton"
         android:layout_width="match_parent"
-        android:fontFamily="@font/roboto_500"
         android:background="@color/accent"
+        android:fontFamily="@font/roboto_500"
         android:text="@string/settings_button_add_pictures"
         app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -28,14 +28,14 @@
         android:id="@+id/settings_help_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginHorizontal="32dp"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/settings_button_add_pictures"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"
-        android:visibility="visible"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/settings_icon_image_search"
@@ -48,25 +48,41 @@
         <TextView
             android:id="@+id/settings_text_help"
             android:layout_width="match_parent"
-            android:textAlignment="textStart"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:lineSpacingExtra="6dp"
             android:gravity="center_horizontal"
+            android:lineSpacingExtra="6dp"
             android:text="@string/settings_empty_text"
+            android:textAlignment="textStart"
             android:textColor="@color/text"
             android:textSize="16sp"
             tools:ignore="RtlCompat" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/inRotationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_500"
+        android:text="@string/settings_in_rotation"
+        android:textAllCaps="true"
+        android:textColor="@color/icon_dark_gray"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/settingsToolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/settingsPicturesRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:overScrollMode="never"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"
-        android:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@+id/inRotationTitle"
+        tools:itemCount="5"
+        tools:listitem="@layout/settings_pictures_rv_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,4 +13,5 @@
     <color name="status_bar_background">#151313</color>
     <color name="text">#FFFFFF</color>
     <color name="accent">#21C68B</color>
+    <color name="icon_dark_gray">#7B7779</color>
 </resources>
