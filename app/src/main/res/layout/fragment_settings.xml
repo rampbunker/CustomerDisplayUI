@@ -10,6 +10,8 @@
         android:id="@+id/settingsToolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        app:navigationIcon="@drawable/ic_back"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/settings_title"
         app:titleTextAppearance="@style/CustomToolbarText"

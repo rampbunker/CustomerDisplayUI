@@ -25,9 +25,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(settingsToolbar)
-        mainActivity.supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-        }
+        settingsToolbar.setNavigationOnClickListener { mainActivity.onBackPressed() }
 //        showHideHelp(true)
         settingsPicturesAdapter.bindPictures(getMockPictures())
         settingsPicturesRV?.apply {
