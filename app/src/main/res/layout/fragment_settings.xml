@@ -26,13 +26,12 @@
     <LinearLayout
         android:id="@+id/settings_help_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/settings_button_add_pictures"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/settingsToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"
         android:visibility="visible"
         tools:visibility="visible">
 
@@ -40,6 +39,7 @@
             android:id="@+id/settings_icon_image_search"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:layout_marginTop="200dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_image_search"
             tools:ignore="ContentDescription" />
@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
+            android:paddingHorizontal="32dp"
             android:gravity="center_horizontal"
             android:text="@string/settings_empty_text"
             android:textColor="@color/text"
