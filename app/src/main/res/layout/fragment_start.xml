@@ -12,8 +12,10 @@
         android:layout_height="56dp"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/start_title"
+        android:paddingHorizontal="16dp"
         app:titleTextAppearance="@style/CustomToolbarText"
-        app:titleTextColor="@color/text" />
+        app:titleTextColor="@color/text"
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/start_button_start_customer"
@@ -35,7 +37,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/startToolbar"
         android:visibility="visible"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/start_icon_empty_gallery"
