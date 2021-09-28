@@ -1,5 +1,6 @@
 package ru.evotor.external.customer_display.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.isVisible
@@ -16,6 +17,7 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
     private val HELP_MENU_ITEM_ID = 2
+    private val PICK_IMAGE_MULTIPLE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +37,16 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = settingsPicturesAdapter
 //            addItemDecoration(BoundsOffsetDecoration())
+        }
+        settings_button_add_pictures.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(
+                Intent.createChooser(intent, "Select Picture"),
+                PICK_IMAGE_MULTIPLE
+            )
         }
     }
 
