@@ -11,6 +11,7 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_start.*
 import ru.evotor.external.customer_display.R
@@ -39,6 +40,10 @@ class StartFragment : Fragment() {
             layoutManager = CenterZoomLayoutManager(requireContext())
             adapter = startGalleryAdapter
             addItemDecoration(BoundsOffsetDecoration())
+        }
+        testGallery.setOnClickListener {
+            start_empty_gallery_hint_view.isVisible = false
+            startGalleryRV.isVisible = true
         }
     }
 
