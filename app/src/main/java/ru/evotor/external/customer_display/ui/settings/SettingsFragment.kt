@@ -14,6 +14,7 @@ class SettingsFragment : Fragment() {
 
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
+    private val HELP_MENU_ITEM_ID = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +26,13 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(settingsToolbar)
-        settingsToolbar.setNavigationOnClickListener { mainActivity.onBackPressed() }
-//        showHideHelp(true)
+        settingsToolbar.setNavigationOnClickListener {
+            if (settings_help_view.isVisible) {
+                showHideHelp(false)
+            } else {
+                mainActivity.onBackPressed()
+            }
+        }
         settingsPicturesAdapter.bindPictures(getMockPictures())
         settingsPicturesRV?.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -37,14 +43,41 @@ class SettingsFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
-        menu.add(Menu.NONE, 2, Menu.NONE, R.string.settings_help_hint)
-            .setIcon(R.drawable.ic_help)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        if (settings_help_view.isVisible) {
+            menu.clear()
+        } else {
+            menu.add(Menu.NONE, HELP_MENU_ITEM_ID, Menu.NONE, R.string.settings_help_hint)
+                .setIcon(R.drawable.ic_help)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            HELP_MENU_ITEM_ID -> {
+                showHideHelp(true)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun showHideHelp(show: Boolean) {
-        settings_help_view.isVisible = show
+        if (show) {
+            settings_help_view.isVisible = true
+            settingsToolbar.title = "Помощь"
+            settingsToolbar.navigationIcon = requireContext().getDrawable(R.drawable.ic_close)
+        } else {
+            settings_help_view.isVisible = false
+            settingsToolbar.title = "Настройки"
+            settingsToolbar.navigationIcon = requireContext().getDrawable(R.drawable.ic_back)
+        }
+        mainActivity.invalidateOptionsMenu()
     }
 
     //  !!! Delete Mock Data Source !!!

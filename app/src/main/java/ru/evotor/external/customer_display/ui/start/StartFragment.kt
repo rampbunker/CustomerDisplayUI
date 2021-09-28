@@ -21,6 +21,7 @@ class StartFragment : Fragment() {
 
     private val mainActivity by lazy { activity as MainActivity }
     private val startGalleryAdapter = StartGalleryAdapter()
+    private val SETTINGS_MENU_ITEM_ID = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,10 +44,20 @@ class StartFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
-        menu.add(Menu.NONE, 1, Menu.NONE, R.string.start_settings_hint)
+        menu.add(Menu.NONE, SETTINGS_MENU_ITEM_ID, Menu.NONE, R.string.start_settings_hint)
             .setIcon(R.drawable.ic_settings)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            SETTINGS_MENU_ITEM_ID -> {
+                mainActivity.goToSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     //  !!! Delete Mock Data Source !!!

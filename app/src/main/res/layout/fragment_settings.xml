@@ -26,42 +26,6 @@
         android:text="@string/settings_button_add_pictures"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/settings_help_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/settings_button_add_pictures"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"
-        tools:visibility="gone">
-
-        <ImageView
-            android:id="@+id/settings_icon_image_search"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_image_search"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/settings_text_help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
-            android:gravity="center_horizontal"
-            android:lineSpacingExtra="6dp"
-            android:text="@string/settings_empty_text"
-            android:textAlignment="textStart"
-            android:textColor="@color/text"
-            android:textSize="16sp"
-            tools:ignore="RtlCompat" />
-    </LinearLayout>
-
     <TextView
         android:id="@+id/inRotationTitle"
         android:layout_width="match_parent"
@@ -87,4 +51,43 @@
         app:layout_constraintTop_toBottomOf="@+id/inRotationTitle"
         tools:itemCount="5"
         tools:listitem="@layout/settings_pictures_rv_item" />
+
+    <LinearLayout
+        android:id="@+id/settings_help_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="32dp"
+        android:background="@color/background"
+        android:paddingTop="70dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/settings_button_add_pictures"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/settings_icon_image_search"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_image_search"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/settings_text_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="6dp"
+            android:text="@string/settings_empty_text"
+            android:textAlignment="textStart"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            tools:ignore="RtlCompat" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

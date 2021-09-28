@@ -1,8 +1,6 @@
 package ru.evotor.external.customer_display.ui
 
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import dagger.android.support.DaggerAppCompatActivity
 import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.ui.settings.SettingsFragment
@@ -23,21 +21,6 @@ class MainActivity : DaggerAppCompatActivity() {
             .replace(R.id.main_container, StartFragment())
             .addToBackStack(StartFragment::class.java.canonicalName)
             .commit()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            1 -> {
-                Toast.makeText(this, "go to settings", Toast.LENGTH_SHORT).show()
-                goToSettings()
-                true
-            }
-            2 -> {
-                Toast.makeText(this, "show help", Toast.LENGTH_SHORT).show()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     fun goToSettings() {
