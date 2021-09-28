@@ -9,17 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.ui.PictureItem
 
 
 class SettingsPicturesAdapter :
     RecyclerView.Adapter<SettingsPicturesAdapter.SettingsPicturesViewHolder>() {
-    private var dataset = listOf<String>()
+    private var dataset = listOf<PictureItem>()
 
 
     override fun getItemCount(): Int =
         dataset.size
 
-    fun bindPictures(newPictures: List<String>) {
+    fun bindPictures(newPictures: List<PictureItem>) {
         dataset = newPictures
         notifyDataSetChanged()
     }
@@ -39,12 +40,10 @@ class SettingsPicturesAdapter :
         private val picture by lazy { view.findViewById<ImageView>(R.id.settings_gallery_picture) }
         private val fileName by lazy { view.findViewById<TextView>(R.id.settingsGalleryFileName) }
 
-        fun setData(data: String) {
-            fileName.text = data
-//            val file: File = (Environment.getExternalStorageDirectory()
-
+        fun setData(pictureItem: PictureItem) {
+            fileName.text = pictureItem.fileName
             Glide.with(itemView.context)
-                .load(data)
+                .load(pictureItem.uri)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.ic_empty_gallery)
                 .fallback(R.drawable.ic_empty_gallery)

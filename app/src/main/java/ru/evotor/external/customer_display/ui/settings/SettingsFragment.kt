@@ -1,8 +1,12 @@
 package ru.evotor.external.customer_display.ui.settings
 
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,12 +14,14 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.OnBackPressedListener
+import ru.evotor.external.customer_display.ui.PictureItem
 
 
 class SettingsFragment : Fragment(), OnBackPressedListener {
 
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
+    var pictureItems: MutableList<PictureItem> = ArrayList()
     private val HELP_MENU_ITEM_ID = 2
     private val PICK_IMAGE_MULTIPLE = 1
 
@@ -32,7 +38,6 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
         settingsToolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-        settingsPicturesAdapter.bindPictures(getMockPictures())
         settingsPicturesRV?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = settingsPicturesAdapter
@@ -87,6 +92,58 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
             settingsToolbar.navigationIcon = requireContext().getDrawable(R.drawable.ic_back)
         }
         mainActivity.invalidateOptionsMenu()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == AppCompatActivity.RESULT_OK && null != data) {
+            if (data.clipData != null) {
+                val count = data.clipData!!.itemCount
+                for (i in 0 until count) {
+                    val imageUri = data.clipData!!.getItemAt(i).uri
+                    pictureItems.add(
+                        PictureItem(
+                            imageUri,
+                            getFileNameFromUri(imageUri)
+                        )
+                    )
+                }
+            } else {
+                val imageUri = data.data
+                if (imageUri != null) {
+                    pictureItems.add(
+                        PictureItem(
+                            imageUri,
+                            getFileNameFromUri(imageUri)
+                        )
+                    )
+                }
+            }
+        }
+        settingsPicturesAdapter.bindPictures(pictureItems)
+    }
+
+    private fun getFileNameFromUri(uri: Uri): String {
+        var result = ""
+        if (uri.scheme.equals("content")) {
+            val cursor: Cursor? = mainActivity.contentResolver.query(uri, null, null, null, null)
+            cursor.use { cursor ->
+                if (cursor != null) {
+                    if (cursor.moveToFirst()) {
+                        result =
+                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                    }
+                }
+            }
+        }
+        if (result == "") {
+            result = uri.path.toString()
+            val cut = result.lastIndexOf('/')
+            if (cut != -1) {
+                result = result.substring(cut + 1)
+            }
+        }
+        return result
     }
 
     //  !!! Delete Mock Data Source !!!
