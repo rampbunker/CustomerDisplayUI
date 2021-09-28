@@ -14,6 +14,7 @@ import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.service.CustomerDisplayDataProvider
 import javax.inject.Inject
 
+
 class CustomerDisplayFragment : DaggerFragment() {
     private val dataAdapter = CustomerDisplayAdapter()
 
@@ -22,11 +23,23 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     private val disposable = CompositeDisposable()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //To hide navigation bar
+        val flags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        requireActivity().window.decorView.systemUiVisibility = flags
+    }
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? =
-            inflater.inflate(R.layout.fragment_customer_display, container, false)
+        inflater.inflate(R.layout.fragment_customer_display, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,18 +67,18 @@ class CustomerDisplayFragment : DaggerFragment() {
         dataProvider.init(DEVICE_COLUMNS, DEVICE_ROWS)
 
         dataProvider.clearDisplayEventStream
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    dataAdapter.clearData()
-                }
-                .let { d -> disposable.add(d) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                dataAdapter.clearData()
+            }
+            .let { d -> disposable.add(d) }
 
         dataProvider.stringOutputEventStream
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { dataString ->
-                    dataAdapter.appendData(dataString)
-                }
-                .let { d -> disposable.add(d) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { dataString ->
+                dataAdapter.appendData(dataString)
+            }
+            .let { d -> disposable.add(d) }
     }
 
     override fun onStop() {
