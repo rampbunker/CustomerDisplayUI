@@ -22,8 +22,6 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
     var pictureItems: MutableList<PictureItem> = ArrayList()
-    private val HELP_MENU_ITEM_ID = 2
-    private val PICK_IMAGE_MULTIPLE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -163,5 +161,10 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
         if (settings_help_view != null && settings_help_view.isVisible) {
             showHideHelp(false)
         } else mainActivity.supportFragmentManager.popBackStack()
+    }
+
+    companion object {
+        const val HELP_MENU_ITEM_ID = 2
+        const val PICK_IMAGE_MULTIPLE = 1
     }
 }

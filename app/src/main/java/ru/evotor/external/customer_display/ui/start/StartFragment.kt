@@ -22,7 +22,6 @@ class StartFragment : Fragment() {
 
     private val mainActivity by lazy { activity as MainActivity }
     private val startGalleryAdapter = StartGalleryAdapter()
-    private val SETTINGS_MENU_ITEM_ID = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,5 +115,9 @@ class StartFragment : Fragment() {
             text = spannableString
             movementMethod = LinkMovementMethod.getInstance()
         }
+    }
+
+    companion object {
+        const val SETTINGS_MENU_ITEM_ID = 1
     }
 }
