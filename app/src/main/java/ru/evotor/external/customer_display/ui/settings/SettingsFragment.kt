@@ -9,6 +9,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
@@ -39,7 +40,12 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
         settingsPicturesRV?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = settingsPicturesAdapter
-//            addItemDecoration(BoundsOffsetDecoration())
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    (layoutManager as LinearLayoutManager).orientation
+                )
+            )
         }
         settings_button_add_pictures.setOnClickListener {
             val intent = Intent()
