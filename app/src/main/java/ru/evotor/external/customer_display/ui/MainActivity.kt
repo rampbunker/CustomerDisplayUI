@@ -26,7 +26,23 @@ class MainActivity : DaggerAppCompatActivity() {
     fun goToSettings() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, SettingsFragment())
-            .addToBackStack(StartFragment::class.java.canonicalName)
+            .addToBackStack(SettingsFragment::class.java.canonicalName)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        var backPressedListener: OnBackPressedListener? = null
+
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment is OnBackPressedListener) {
+                backPressedListener = fragment
+                break
+            }
+        }
+        if (backPressedListener != null) {
+            backPressedListener.onBackPressed()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

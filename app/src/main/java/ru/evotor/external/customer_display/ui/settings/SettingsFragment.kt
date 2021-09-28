@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.ui.MainActivity
+import ru.evotor.external.customer_display.ui.OnBackPressedListener
 
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), OnBackPressedListener {
 
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
@@ -27,11 +28,7 @@ class SettingsFragment : Fragment() {
         setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(settingsToolbar)
         settingsToolbar.setNavigationOnClickListener {
-            if (settings_help_view.isVisible) {
-                showHideHelp(false)
-            } else {
-                mainActivity.onBackPressed()
-            }
+            onBackPressed()
         }
         settingsPicturesAdapter.bindPictures(getMockPictures())
         settingsPicturesRV?.apply {
@@ -91,5 +88,11 @@ class SettingsFragment : Fragment() {
             "https://upload.wikimedia.org/wikipedia/commons/7/7f/Rachel_Weisz_2018.jpg",
             "https://toronto.citynews.ca/wp-content/blogs.dir/sites/10/2019/06/NYET414-618_2019_013921.jpg"
         )
+    }
+
+    override fun onBackPressed() {
+        if (settings_help_view != null && settings_help_view.isVisible) {
+            showHideHelp(false)
+        } else mainActivity.supportFragmentManager.popBackStack()
     }
 }
