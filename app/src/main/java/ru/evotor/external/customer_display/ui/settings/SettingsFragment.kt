@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.repository.PictureItem
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.OnBackPressedListener
-import ru.evotor.external.customer_display.ui.PictureItem
 
 
 class SettingsFragment : Fragment(), OnBackPressedListener {

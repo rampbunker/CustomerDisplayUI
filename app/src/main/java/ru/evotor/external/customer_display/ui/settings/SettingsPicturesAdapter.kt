@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import ru.evotor.external.customer_display.R
-import ru.evotor.external.customer_display.ui.PictureItem
+import ru.evotor.external.customer_display.repository.PictureItem
 
 
 class SettingsPicturesAdapter :
