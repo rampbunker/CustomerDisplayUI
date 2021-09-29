@@ -1,10 +1,7 @@
 package ru.evotor.external.customer_display.ui.settings
 
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -120,8 +117,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                     val imageUri = data.clipData!!.getItemAt(i).uri
                     pictureItems.add(
                         picturesRepository.createPictureItemFromUri(
-                            imageUri,
-                            getFileNameFromUri(imageUri)
+                            imageUri
                         )
                     )
                 }
@@ -130,37 +126,13 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                 if (imageUri != null) {
                     pictureItems.add(
                         picturesRepository.createPictureItemFromUri(
-                            imageUri,
-                            getFileNameFromUri(imageUri)
+                            imageUri
                         )
                     )
                 }
             }
         }
         settingsPicturesAdapter.bindPictures(pictureItems)
-    }
-
-    private fun getFileNameFromUri(uri: Uri): String {
-        var result = ""
-        if (uri.scheme.equals("content")) {
-            val cursor: Cursor? = mainActivity.contentResolver.query(uri, null, null, null, null)
-            cursor.use { cursor ->
-                if (cursor != null) {
-                    if (cursor.moveToFirst()) {
-                        result =
-                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                    }
-                }
-            }
-        }
-        if (result == "") {
-            result = uri.path.toString()
-            val cut = result.lastIndexOf('/')
-            if (cut != -1) {
-                result = result.substring(cut + 1)
-            }
-        }
-        return result
     }
 
     override fun onBackPressed() {
