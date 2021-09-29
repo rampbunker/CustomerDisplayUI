@@ -37,16 +37,19 @@ class StartFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(startToolbar)
-        setTextWithLinkForEmptyGallery()
-        startGalleryAdapter.bindPictures(picturesRepository.loadPicturesFromRealm())
-        startGalleryRV?.apply {
-            layoutManager = CenterZoomLayoutManager(requireContext())
-            adapter = startGalleryAdapter
-            addItemDecoration(BoundsOffsetDecoration())
-        }
-        testGallery.setOnClickListener {
+        if (picturesRepository.isInRotationEmpty()) {
+            setTextWithLinkForEmptyGallery()
+            start_empty_gallery_hint_view.isVisible = true
+            startGalleryRV.isVisible = false
+        } else {
             start_empty_gallery_hint_view.isVisible = false
             startGalleryRV.isVisible = true
+            startGalleryAdapter.bindPictures(picturesRepository.loadPicturesFromRealm())
+            startGalleryRV?.apply {
+                layoutManager = CenterZoomLayoutManager(requireContext())
+                adapter = startGalleryAdapter
+                addItemDecoration(BoundsOffsetDecoration())
+            }
         }
     }
 
