@@ -5,7 +5,7 @@
     android:layout_width="161dp"
     android:layout_height="275dp"
     android:layout_gravity="center"
-    android:scaleType="centerCrop"
     android:layout_margin="4dp"
-    tools:src="@mipmap/ic_launcher_round"
-    tools:ignore="ContentDescription,MissingDefaultResource" />
+    android:scaleType="centerCrop"
+    tools:ignore="ContentDescription,MissingDefaultResource"
+    tools:src="@mipmap/ic_launcher_round" />
