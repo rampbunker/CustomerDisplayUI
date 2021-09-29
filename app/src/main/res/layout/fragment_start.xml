@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/startToolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/toolbar_height"
         android:paddingHorizontal="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/start_title"
@@ -43,8 +43,8 @@
 
         <ImageView
             android:id="@+id/start_icon_empty_gallery"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="@dimen/empty_icon_size"
+            android:layout_height="@dimen/empty_icon_size"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_empty_gallery"
             tools:ignore="ContentDescription" />
@@ -57,10 +57,10 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/roboto_400"
             android:gravity="center_horizontal"
-            android:lineSpacingExtra="6dp"
+            android:lineSpacingExtra="@dimen/paragraph_linespacing"
             android:text="@string/start_empty_text"
             android:textColor="@color/text"
-            android:textSize="16sp" />
+            android:textSize="@dimen/paragraph_textsize" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="settings_subtitle_textsize">14sp</dimen>
+    <dimen name="empty_icon_size">64dp</dimen>
+    <dimen name="paragraph_textsize">16sp</dimen>
+    <dimen name="paragraph_linespacing">6dp</dimen>
+    <dimen name="settings_RV_item_height">56dp</dimen>
+    <dimen name="settings_RV_picture_size">40dp</dimen>
+</resources>
