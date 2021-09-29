@@ -80,16 +80,14 @@
 
         <TextView
             android:id="@+id/settings_text_help"
+            style="@style/ParagraphText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:gravity="center_horizontal"
-            android:lineSpacingExtra="@dimen/paragraph_linespacing"
             android:text="@string/settings_empty_text"
             android:textAlignment="textStart"
-            android:textColor="@color/text"
-            android:textSize="@dimen/paragraph_textsize"
             tools:ignore="RtlCompat" />
     </LinearLayout>
 

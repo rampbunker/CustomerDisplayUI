@@ -21,4 +21,11 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:layout_marginHorizontal">16dp</item>
     </style>
+
+    <style name="ParagraphText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/paragraph_textsize</item>
+        <item name="android:fontFamily">@font/roboto_400</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:lineSpacingExtra">@dimen/paragraph_linespacing</item>
+    </style>
 </resources>
