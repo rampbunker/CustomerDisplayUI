@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -107,20 +108,23 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
             SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP -> {
                 visibilityState = SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP
                 settings_help_view.isVisible = true
-                settingsToolbar.title = "Настройки"
-                settingsToolbar.navigationIcon = requireContext().getDrawable(R.drawable.ic_back)
+                settingsToolbar.title = getString(R.string.settings_title)
+                settingsToolbar.navigationIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_back)
             }
             SettingsVisibilityState.SHOW_SETTINGS -> {
                 visibilityState = SettingsVisibilityState.SHOW_SETTINGS
                 settings_help_view.isVisible = false
-                settingsToolbar.title = "Настройки"
-                settingsToolbar.navigationIcon = requireContext().getDrawable(R.drawable.ic_back)
+                settingsToolbar.title = getString(R.string.settings_title)
+                settingsToolbar.navigationIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_back)
             }
             SettingsVisibilityState.CLICKED_HELP_SHOW_HELP -> {
                 visibilityState = SettingsVisibilityState.CLICKED_HELP_SHOW_HELP
                 settings_help_view.isVisible = true
-                settingsToolbar.title = "Помощь"
-                settingsToolbar.navigationIcon = requireContext().getDrawable(R.drawable.ic_close)
+                settingsToolbar.title = getString(R.string.settings_help_hint)
+                settingsToolbar.navigationIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_back)
             }
         }
         mainActivity.invalidateOptionsMenu()
