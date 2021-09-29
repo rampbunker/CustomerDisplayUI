@@ -56,6 +56,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                 )
             )
         }
+        settingsPicturesAdapter.bindPictures(picturesRepository.loadPicturesFromRealm())
     }
 
     private fun startPickImagesScreen() {
@@ -132,7 +133,10 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                 }
             }
         }
-        settingsPicturesAdapter.bindPictures(pictureItems)
+        for (item in pictureItems) {
+            picturesRepository.savePictureToRealm(item)
+        }
+        settingsPicturesAdapter.bindPictures(picturesRepository.loadPicturesFromRealm())
     }
 
     override fun onBackPressed() {
