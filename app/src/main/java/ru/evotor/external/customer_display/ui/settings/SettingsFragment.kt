@@ -24,8 +24,9 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
     lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
-    var pictureItems: MutableList<PictureItem> = ArrayList()
-    var visibilityState: SettingsVisibilityState = SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP
+    private var pictureItems: MutableList<PictureItem> = ArrayList()
+    private var visibilityState: SettingsVisibilityState =
+        SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP
 
 
     override fun onCreateView(
