@@ -8,5 +8,5 @@ open class PictureItem : RealmObject() {
     var id: Long = 0
     lateinit var uriString: String
     var fileName: String = ""
-    var inRotation: Boolean = false
+    var inRotation: Boolean = true
 }

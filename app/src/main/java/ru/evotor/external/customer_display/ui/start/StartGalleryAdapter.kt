@@ -1,5 +1,6 @@
 package ru.evotor.external.customer_display.ui.start
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +13,16 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.repository.PictureItem
 
 class StartGalleryAdapter : RecyclerView.Adapter<StartGalleryAdapter.StartGalleryViewHolder>() {
-    private var dataset = listOf<String>()
+    private var dataset = listOf<PictureItem>()
 
 
     override fun getItemCount(): Int =
         dataset.size
 
-    fun bindPictures(newPictures: List<String>) {
+    fun bindPictures(newPictures: List<PictureItem>) {
         dataset = newPictures
         notifyDataSetChanged()
     }
@@ -45,9 +47,9 @@ class StartGalleryAdapter : RecyclerView.Adapter<StartGalleryAdapter.StartGaller
             RoundedCornersTransformation(8, 0)
         )
 
-        fun setData(data: String) {
+        fun setData(pictureItem: PictureItem) {
             Glide.with(itemView.context)
-                .load(data)
+                .load(Uri.parse(pictureItem.uriString))
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.ic_empty_gallery)

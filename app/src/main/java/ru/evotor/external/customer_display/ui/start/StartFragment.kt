@@ -12,14 +12,18 @@ import android.text.style.ForegroundColorSpan
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_start.*
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.ui.MainActivity
+import javax.inject.Inject
 
 
-class StartFragment : Fragment() {
+class StartFragment : DaggerFragment() {
 
+    @Inject
+    lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
     private val startGalleryAdapter = StartGalleryAdapter()
 
@@ -34,7 +38,7 @@ class StartFragment : Fragment() {
         setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(startToolbar)
         setTextWithLinkForEmptyGallery()
-        startGalleryAdapter.bindPictures(getMockPictures())
+        startGalleryAdapter.bindPictures(picturesRepository.loadPicturesFromRealm())
         startGalleryRV?.apply {
             layoutManager = CenterZoomLayoutManager(requireContext())
             adapter = startGalleryAdapter

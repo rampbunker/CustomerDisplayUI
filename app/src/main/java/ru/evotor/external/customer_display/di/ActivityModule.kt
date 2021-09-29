@@ -6,6 +6,7 @@ import dagger.android.ContributesAndroidInjector
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.display.CustomerDisplayFragment
 import ru.evotor.external.customer_display.ui.settings.SettingsFragment
+import ru.evotor.external.customer_display.ui.start.StartFragment
 
 @Module(includes = [AndroidInjectionModule::class])
 abstract class ActivityModule {
@@ -18,4 +19,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun bindSettingsFragment(): SettingsFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindStartFragment(): StartFragment
 }
