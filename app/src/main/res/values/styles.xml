@@ -13,4 +13,12 @@
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/roboto_500</item>
     </style>
+
+    <style name="Subtitle" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/settings_subtitle_textsize</item>
+        <item name="android:fontFamily">@font/roboto_500</item>
+        <item name="android:textColor">@color/icon_dark_gray</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginHorizontal">16dp</item>
+    </style>
 </resources>
