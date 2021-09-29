@@ -1,11 +1,15 @@
 package ru.evotor.external.customer_display.repository
 
+import android.content.Context
 import android.net.Uri
 import io.realm.Realm
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.collections.ArrayList
 
-class PicturesRepository() {
+@Singleton
+class PicturesRepository @Inject constructor(private val appContext: Context) {
 
     private var realm: Realm? = null
 

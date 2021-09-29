@@ -8,25 +8,26 @@ import android.provider.OpenableColumns
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.repository.PictureItem
 import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.OnBackPressedListener
+import javax.inject.Inject
 
 
-class SettingsFragment : Fragment(), OnBackPressedListener {
+class SettingsFragment : DaggerFragment(), OnBackPressedListener {
 
+    @Inject
+    lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
     var pictureItems: MutableList<PictureItem> = ArrayList()
 
-    //needs Dagger
-    var picturesRepository = PicturesRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
