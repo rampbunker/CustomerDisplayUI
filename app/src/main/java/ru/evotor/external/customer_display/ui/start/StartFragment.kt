@@ -68,20 +68,6 @@ class StartFragment : DaggerFragment() {
         }
     }
 
-    //  !!! Delete Mock Data Source !!!
-    private fun getMockPictures(): List<String> {
-        return listOf(
-            "https://upload.wikimedia.org/wikipedia/commons/d/d9/Robin_Wright_Cannes_2017_%28cropped%29.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/2/2c/Connie_Nielsen_by_Gage_Skidmore.jpg",
-            "https://st.kp.yandex.net/im/kadr/1/2/4/kinopoisk.ru-Kenneth-Branagh-1241673.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/c/c5/Pedro_Pascal_by_Gage_Skidmore.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/8/84/David_Harbour_by_Gage_Skidmore.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/7/7f/Rachel_Weisz_2018.jpg",
-            "https://toronto.citynews.ca/wp-content/blogs.dir/sites/10/2019/06/NYET414-618_2019_013921.jpg"
-        )
-    }
-
-
     private fun setTextWithLinkForEmptyGallery() {
         val fullText = getText(R.string.start_empty_text) as SpannedString
         val spannableString = SpannableString(fullText)
