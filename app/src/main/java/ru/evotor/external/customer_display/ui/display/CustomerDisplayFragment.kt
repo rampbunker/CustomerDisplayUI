@@ -23,18 +23,6 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     private val disposable = CompositeDisposable()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //To hide navigation bar
-        val flags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-        requireActivity().window.decorView.systemUiVisibility = flags
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,7 +73,8 @@ class CustomerDisplayFragment : DaggerFragment() {
         super.onStop()
         disposable.dispose()
 
-        dataProvider.finish()
+//        crash here
+//        dataProvider.finish()
     }
 
     companion object {
