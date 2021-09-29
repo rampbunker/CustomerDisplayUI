@@ -74,4 +74,8 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
             .equalTo("inRotation", true)
             .findAll().isEmpty()
     }
+
+    fun isRealmEmpty(): Boolean {
+        return openRealm()!!.where(PictureItem::class.java).findAll().isEmpty()
+    }
 }
