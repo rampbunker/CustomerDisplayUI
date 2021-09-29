@@ -18,7 +18,7 @@
         app:titleTextColor="@color/text" />
 
     <Button
-        android:id="@+id/settings_button_add_pictures"
+        android:id="@+id/settingsButtonAddPictures"
         style="@style/CustomButton"
         android:layout_width="match_parent"
         android:background="@color/accent"
@@ -74,7 +74,7 @@
         android:paddingHorizontal="32dp"
         android:paddingTop="70dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/settings_button_add_pictures"
+        app:layout_constraintBottom_toTopOf="@+id/settingsButtonAddPictures"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsToolbar"

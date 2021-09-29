@@ -37,7 +37,14 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
         settingsToolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-        settingsPicturesRV?.apply {
+        setUpRV()
+        settingsButtonAddPictures.setOnClickListener {
+            startPickImagesScreen()
+        }
+    }
+
+    private fun setUpRV() {
+        settingsPicturesRV.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = settingsPicturesAdapter
             addItemDecoration(
@@ -47,16 +54,17 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
                 )
             )
         }
-        settings_button_add_pictures.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(
-                Intent.createChooser(intent, "Select Picture"),
-                PICK_IMAGE_MULTIPLE
-            )
-        }
+    }
+
+    private fun startPickImagesScreen() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(
+            Intent.createChooser(intent, "Select Picture"),
+            PICK_IMAGE_MULTIPLE
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -148,19 +156,6 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
             }
         }
         return result
-    }
-
-    //  !!! Delete Mock Data Source !!!
-    private fun getMockPictures(): List<String> {
-        return listOf(
-            "https://upload.wikimedia.org/wikipedia/commons/d/d9/Robin_Wright_Cannes_2017_%28cropped%29.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/2/2c/Connie_Nielsen_by_Gage_Skidmore.jpg",
-            "https://st.kp.yandex.net/im/kadr/1/2/4/kinopoisk.ru-Kenneth-Branagh-1241673.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/c/c5/Pedro_Pascal_by_Gage_Skidmore.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/8/84/David_Harbour_by_Gage_Skidmore.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/7/7f/Rachel_Weisz_2018.jpg",
-            "https://toronto.citynews.ca/wp-content/blogs.dir/sites/10/2019/06/NYET414-618_2019_013921.jpg"
-        )
     }
 
     override fun onBackPressed() {
