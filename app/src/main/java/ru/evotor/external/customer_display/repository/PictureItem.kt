@@ -1,9 +1,12 @@
 package ru.evotor.external.customer_display.repository
 
-import android.net.Uri
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 
-data class PictureItem(
-    var uri: Uri,
-    var fileName: String = "",
+open class PictureItem : RealmObject() {
+    @PrimaryKey
+    var id: Long = 0
+    lateinit var uriString: String
+    var fileName: String = ""
     var inRotation: Boolean = false
-)
+}
