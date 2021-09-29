@@ -7,22 +7,20 @@
 
     <ImageView
         android:id="@+id/settings_gallery_icon_remove"
+        style="@style/settingsRVItemImage"
         android:layout_width="@dimen/settings_RV_picture_size"
         android:layout_height="@dimen/settings_RV_picture_size"
-        android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
-        android:paddingVertical="8dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_remove"
         tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/settings_gallery_picture"
+        style="@style/settingsRVItemImage"
         android:layout_width="@dimen/settings_RV_picture_size"
         android:layout_height="@dimen/settings_RV_picture_size"
-        android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription,MissingDefaultResource"
         tools:src="@mipmap/ic_launcher_round" />
