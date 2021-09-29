@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.repository.PictureItem
+import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.OnBackPressedListener
 
@@ -23,6 +24,9 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter()
     var pictureItems: MutableList<PictureItem> = ArrayList()
+
+    //needs Dagger
+    var picturesRepository = PicturesRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,7 +118,7 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
                 for (i in 0 until count) {
                     val imageUri = data.clipData!!.getItemAt(i).uri
                     pictureItems.add(
-                        PictureItem(
+                        picturesRepository.createPictureItemFromUri(
                             imageUri,
                             getFileNameFromUri(imageUri)
                         )
@@ -124,7 +128,7 @@ class SettingsFragment : Fragment(), OnBackPressedListener {
                 val imageUri = data.data
                 if (imageUri != null) {
                     pictureItems.add(
-                        PictureItem(
+                        picturesRepository.createPictureItemFromUri(
                             imageUri,
                             getFileNameFromUri(imageUri)
                         )

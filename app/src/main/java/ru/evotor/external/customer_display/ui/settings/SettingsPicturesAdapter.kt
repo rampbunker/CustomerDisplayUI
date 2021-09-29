@@ -1,5 +1,6 @@
 package ru.evotor.external.customer_display.ui.settings
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +44,7 @@ class SettingsPicturesAdapter :
         fun setData(pictureItem: PictureItem) {
             fileName.text = pictureItem.fileName
             Glide.with(itemView.context)
-                .load(pictureItem.uri)
+                .load(Uri.parse(pictureItem.uriString))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.ic_empty_gallery)
                 .fallback(R.drawable.ic_empty_gallery)
