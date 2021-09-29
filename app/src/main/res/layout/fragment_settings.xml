@@ -21,8 +21,6 @@
         android:id="@+id/settingsButtonAddPictures"
         style="@style/CustomButton"
         android:layout_width="match_parent"
-        android:background="@color/accent"
-        android:fontFamily="@font/roboto_500"
         android:text="@string/settings_button_add_pictures"
         app:layout_constraintBottom_toBottomOf="parent" />
 
