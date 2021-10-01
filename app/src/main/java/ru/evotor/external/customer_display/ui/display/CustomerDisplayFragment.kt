@@ -1,53 +1,77 @@
 package ru.evotor.external.customer_display.ui.display
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_customer_display.*
+import kotlinx.android.synthetic.main.my_fragment_customer_display.*
 import ru.evotor.external.customer_display.R
+import ru.evotor.external.customer_display.repository.PictureItem
+import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.service.CustomerDisplayDataProvider
 import javax.inject.Inject
 
 
 class CustomerDisplayFragment : DaggerFragment() {
-    private val dataAdapter = CustomerDisplayAdapter()
 
     @Inject
     lateinit var dataProvider: CustomerDisplayDataProvider
+    private val dataAdapter = CustomerDisplayAdapter()
 
+    @Inject
+    lateinit var picturesRepository: PicturesRepository
     private val disposable = CompositeDisposable()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        inflater.inflate(R.layout.fragment_customer_display, container, false)
+        inflater.inflate(R.layout.my_fragment_customer_display, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        customerDisplayRV?.apply {
-            val manager = LinearLayoutManager(requireContext())
-            manager.stackFromEnd = true
-            layoutManager = manager
-
-            dataAdapter.appendData("Добро пожаловать!")
-            dataAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    super.onItemRangeInserted(positionStart, itemCount)
-
-                    customerDisplayRV.smoothScrollToPosition(positionStart)
-                }
-            })
-            adapter = dataAdapter
+        val pictureItems: List<PictureItem> = picturesRepository.loadPicturesFromRealm()
+        backgroundViewFlipper.isAutoStart = true
+        backgroundViewFlipper.flipInterval = 1000
+        for (pi in pictureItems) {
+            setFlipperImage(pi)
         }
     }
+
+    private fun setFlipperImage(pictureItem: PictureItem) {
+        val flipperImageView = ImageView(context)
+        flipperImageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        Glide.with(requireContext())
+            .load(Uri.parse(pictureItem.uriString))
+            .placeholder(R.drawable.ic_empty_gallery)
+            .fallback(R.drawable.ic_empty_gallery)
+            .into(flipperImageView)
+        backgroundViewFlipper.addView(flipperImageView)
+    }
+
+//        customerDisplayRV?.apply {
+//            val manager = LinearLayoutManager(requireContext())
+//            manager.stackFromEnd = true
+//            layoutManager = manager
+//
+//            dataAdapter.appendData("Добро пожаловать!")
+//            dataAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+//                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+//                    super.onItemRangeInserted(positionStart, itemCount)
+//
+//                    customerDisplayRV.smoothScrollToPosition(positionStart)
+//                }
+//            })
+//            adapter = dataAdapter
+//        }
+
 
     override fun onStart() {
         super.onStart()
