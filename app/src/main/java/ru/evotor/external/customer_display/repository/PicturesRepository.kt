@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.OpenableColumns
 import io.realm.Realm
+import io.realm.RealmResults
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -77,5 +78,14 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
 
     fun isRealmEmpty(): Boolean {
         return openRealm()!!.where(PictureItem::class.java).findAll().isEmpty()
+    }
+
+    fun deleteFromRealm(pictureItem: PictureItem) {
+        val realm = openRealm()!!
+        val result: RealmResults<PictureItem> =
+            realm.where(PictureItem::class.java).equalTo("id", pictureItem.id).findAll()
+        realm.beginTransaction()
+        result.deleteAllFromRealm()
+        realm.commitTransaction()
     }
 }
