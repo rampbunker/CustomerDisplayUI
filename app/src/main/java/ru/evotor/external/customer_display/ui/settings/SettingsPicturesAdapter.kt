@@ -9,19 +9,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import kotlinx.android.synthetic.main.settings_pictures_rv_item.view.*
 import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.repository.PictureItem
 
 
-class SettingsPicturesAdapter :
+class SettingsPicturesAdapter(private val clickListener: (PictureItem) -> Unit) :
     RecyclerView.Adapter<SettingsPicturesAdapter.SettingsPicturesViewHolder>() {
-    private var dataset = listOf<PictureItem>()
+    private var dataset = ArrayList<PictureItem>()
 
 
     override fun getItemCount(): Int =
         dataset.size
 
-    fun bindPictures(newPictures: List<PictureItem>) {
+    fun bindPictures(newPictures: ArrayList<PictureItem>) {
         dataset = newPictures
         notifyDataSetChanged()
     }
@@ -29,6 +30,11 @@ class SettingsPicturesAdapter :
     override fun onBindViewHolder(holder: SettingsPicturesViewHolder, position: Int) =
         holder.run {
             setData(dataset[position])
+            holder.itemView.settings_gallery_icon_remove.setOnClickListener {
+                clickListener(dataset[position])
+                dataset.removeAt(position)
+                notifyItemRemoved(position)
+            }
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingsPicturesViewHolder =

@@ -23,7 +23,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
     @Inject
     lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
-    private val settingsPicturesAdapter = SettingsPicturesAdapter()
+    private val settingsPicturesAdapter = SettingsPicturesAdapter { deletePictureItem(it) }
     private var pictureItems: MutableList<PictureItem> = ArrayList()
     private var visibilityState: SettingsVisibilityState =
         SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP
@@ -163,6 +163,10 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
             settingsPicturesAdapter.bindPictures(picturesRepository.loadPicturesFromRealm())
         }
 
+    }
+
+    private fun deletePictureItem(pictureItem: PictureItem) {
+        picturesRepository.deleteFromRealm(pictureItem)
     }
 
     override fun onBackPressed() {
