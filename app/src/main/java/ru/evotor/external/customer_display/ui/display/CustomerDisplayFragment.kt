@@ -32,7 +32,7 @@ class CustomerDisplayFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        customerDisplayList?.apply {
+        customerDisplayRV?.apply {
             val manager = LinearLayoutManager(requireContext())
             manager.stackFromEnd = true
             layoutManager = manager
@@ -42,7 +42,7 @@ class CustomerDisplayFragment : DaggerFragment() {
                 override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                     super.onItemRangeInserted(positionStart, itemCount)
 
-                    customerDisplayList.smoothScrollToPosition(positionStart)
+                    customerDisplayRV.smoothScrollToPosition(positionStart)
                 }
             })
             adapter = dataAdapter

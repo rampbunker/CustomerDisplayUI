@@ -6,7 +6,7 @@
     tools:context=".ui.display.CustomerDisplayFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/customerDisplayList"
+        android:id="@+id/customerDisplayRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

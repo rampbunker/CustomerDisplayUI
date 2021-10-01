@@ -30,13 +30,13 @@ class CustomerDisplayAdapter : RecyclerView.Adapter<CustomerDisplayAdapter.Custo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerDisplayViewHolder =
             LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.customer_display_list_item, parent, false)
+                .from(parent.context)
+                .inflate(R.layout.customer_display_rv_item, parent, false)
                     .let { v -> CustomerDisplayViewHolder(v) }
 
 
     inner class CustomerDisplayViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val textView by lazy { view.findViewById<TextView>(R.id.textView) }
+        private val textView by lazy { view.findViewById<TextView>(R.id.customerDisplayDataText) }
 
         fun setData(data: String) {
             textView.text = data
