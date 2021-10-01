@@ -46,15 +46,6 @@
         tools:itemCount="5"
         tools:listitem="@layout/settings_pictures_rv_item" />
 
-    <TextView
-        android:id="@+id/otherTitle"
-        style="@style/Subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/settings_other"
-        app:layout_constraintTop_toBottomOf="@+id/settingsPicturesRV" />
-
     <LinearLayout
         android:id="@+id/settings_help_view"
         android:layout_width="match_parent"
