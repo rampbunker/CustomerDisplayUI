@@ -52,8 +52,6 @@ class CustomerDisplayFragment : DaggerFragment() {
         flipperImageView.scaleType = ImageView.ScaleType.CENTER_CROP
         Glide.with(requireContext())
             .load(Uri.parse(pictureItem.uriString))
-            .placeholder(R.drawable.ic_empty_gallery)
-            .fallback(R.drawable.ic_empty_gallery)
             .into(flipperImageView)
         backgroundViewFlipper.addView(flipperImageView)
     }
