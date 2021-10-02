@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.my_fragment_customer_display.*
+import kotlinx.android.synthetic.main.fragment_customer_display.*
 import ru.evotor.external.customer_display.R
 import ru.evotor.external.customer_display.repository.PictureItem
 import ru.evotor.external.customer_display.repository.PicturesRepository
@@ -25,7 +25,6 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     @Inject
     lateinit var dataProvider: CustomerDisplayDataProvider
-    private val dataAdapter = CustomerDisplayAdapter()
 
     @Inject
     lateinit var picturesRepository: PicturesRepository
@@ -36,7 +35,7 @@ class CustomerDisplayFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        inflater.inflate(R.layout.my_fragment_customer_display, container, false)
+        inflater.inflate(R.layout.fragment_customer_display, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,23 +58,6 @@ class CustomerDisplayFragment : DaggerFragment() {
         backgroundViewFlipper.addView(flipperImageView)
     }
 
-//        customerDisplayRV?.apply {
-//            val manager = LinearLayoutManager(requireContext())
-//            manager.stackFromEnd = true
-//            layoutManager = manager
-//
-//            dataAdapter.appendData("Добро пожаловать!")
-//            dataAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-//                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-//                    super.onItemRangeInserted(positionStart, itemCount)
-//
-//                    customerDisplayRV.smoothScrollToPosition(positionStart)
-//                }
-//            })
-//            adapter = dataAdapter
-//        }
-
-
     override fun onStart() {
         super.onStart()
 
@@ -84,14 +66,12 @@ class CustomerDisplayFragment : DaggerFragment() {
         dataProvider.clearDisplayEventStream
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                dataAdapter.clearData()
             }
             .let { d -> disposable.add(d) }
 
         dataProvider.stringOutputEventStream
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { dataString ->
-                dataAdapter.appendData(dataString)
                 showTextWithAnimation(dataString)
             }
             .let { d -> disposable.add(d) }
