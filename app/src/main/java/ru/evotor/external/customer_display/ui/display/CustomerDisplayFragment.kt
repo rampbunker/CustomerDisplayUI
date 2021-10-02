@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -42,7 +41,6 @@ class CustomerDisplayFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pictureItems: List<PictureItem> = picturesRepository.loadPicturesFromRealm()
-        backgroundViewFlipper.isAutoStart = true
         backgroundViewFlipper.flipInterval = 10000
         for (pi in pictureItems) {
             setFlipperImage(pi)
@@ -62,9 +60,9 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     override fun onStart() {
         super.onStart()
+        backgroundViewFlipper.startFlipping()
 
         dataProvider.init(DEVICE_COLUMNS, DEVICE_ROWS)
-
         dataProvider.clearDisplayEventStream
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -83,10 +81,10 @@ class CustomerDisplayFragment : DaggerFragment() {
         animUpOut.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
             override fun onAnimationEnd(animation: Animation) {
-                customerDisplayText.isVisible = true
                 customerDisplayText.text = text
                 customerDisplayText.startAnimation(animScaleIn)
             }
+
             override fun onAnimationRepeat(animation: Animation) {}
         })
         customerDisplayText.startAnimation(animUpOut)
@@ -95,6 +93,7 @@ class CustomerDisplayFragment : DaggerFragment() {
     override fun onStop() {
         super.onStop()
         disposable.dispose()
+        backgroundViewFlipper.stopFlipping()
 
 //        crash here
 //        dataProvider.finish()
