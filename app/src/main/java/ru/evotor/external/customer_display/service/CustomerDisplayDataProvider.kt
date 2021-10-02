@@ -96,7 +96,7 @@ class CustomerDisplayDataProvider @Inject constructor(private val appContext: Co
                         stringOutputEventSubject.onNext(
                                 "Товар с содержанием глютена ${Random.nextInt(40)}%\n      =${Random.nextInt(10000)}р"
                         )
-                        sleep(3000)
+                        sleep(2000)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

@@ -29,6 +29,8 @@ class CustomerDisplayFragment : DaggerFragment() {
     @Inject
     lateinit var picturesRepository: PicturesRepository
     private val disposable = CompositeDisposable()
+    private lateinit var animUpOut: Animation
+    lateinit var animScaleIn: Animation
 
 
     override fun onCreateView(
@@ -45,6 +47,8 @@ class CustomerDisplayFragment : DaggerFragment() {
         for (pi in pictureItems) {
             setFlipperImage(pi)
         }
+        animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
+        animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
     }
 
     private fun setFlipperImage(pictureItem: PictureItem) {
@@ -76,16 +80,13 @@ class CustomerDisplayFragment : DaggerFragment() {
     }
 
     private fun showTextWithAnimation(text: String) {
-        val animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
         animUpOut.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
             override fun onAnimationEnd(animation: Animation) {
                 customerDisplayText.isVisible = true
                 customerDisplayText.text = text
-                val animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
                 customerDisplayText.startAnimation(animScaleIn)
             }
-
             override fun onAnimationRepeat(animation: Animation) {}
         })
         customerDisplayText.startAnimation(animUpOut)

@@ -16,4 +16,7 @@
     <string name="settings_in_rotation">В ротации</string>
     <string name="settings_other">Остальные</string>
     <string name="settings_help_hint">Помощь</string>
+
+
+    <string name="customer_display_text_placeholder">Добро пожаловать</string>
 </resources>
