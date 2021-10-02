@@ -24,5 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
+        tools:visibility="visible"
         tools:text="Товар с содержанием глютена, глутамата натрия, пальмового масла, сои и мармелада с майонезом" />
 </androidx.constraintlayout.widget.ConstraintLayout>

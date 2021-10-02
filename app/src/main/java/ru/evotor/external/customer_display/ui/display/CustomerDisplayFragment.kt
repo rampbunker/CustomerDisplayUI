@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -39,7 +42,7 @@ class CustomerDisplayFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         val pictureItems: List<PictureItem> = picturesRepository.loadPicturesFromRealm()
         backgroundViewFlipper.isAutoStart = true
-        backgroundViewFlipper.flipInterval = 1000
+        backgroundViewFlipper.flipInterval = 10000
         for (pi in pictureItems) {
             setFlipperImage(pi)
         }
@@ -89,8 +92,25 @@ class CustomerDisplayFragment : DaggerFragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { dataString ->
                 dataAdapter.appendData(dataString)
+                showTextWithAnimation(dataString)
             }
             .let { d -> disposable.add(d) }
+    }
+
+    private fun showTextWithAnimation(text: String) {
+        val animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
+        animUpOut.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                customerDisplayText.isVisible = true
+                customerDisplayText.text = text
+                val animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
+                customerDisplayText.startAnimation(animScaleIn)
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        customerDisplayText.startAnimation(animUpOut)
     }
 
     override fun onStop() {

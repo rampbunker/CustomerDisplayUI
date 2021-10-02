@@ -167,6 +167,9 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
 
     private fun deletePictureItem(pictureItem: PictureItem) {
         picturesRepository.deleteFromRealm(pictureItem)
+//        if (picturesRepository.isRealmEmpty()) {
+//            toggleHelpVisibility(SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP)
+//        }
     }
 
     override fun onBackPressed() {
