@@ -33,7 +33,7 @@ class SettingsPicturesAdapter(private val clickListener: (PictureItem) -> Unit) 
             holder.itemView.settings_gallery_icon_remove.setOnClickListener {
                 clickListener(dataset[position])
                 dataset.removeAt(position)
-                notifyItemRemoved(position)
+                notifyDataSetChanged()
             }
         }
 
