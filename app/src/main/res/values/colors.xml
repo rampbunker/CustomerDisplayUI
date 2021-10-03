@@ -5,4 +5,6 @@
     <color name="text">#FFFFFF</color>
     <color name="accent">#21C68B</color>
     <color name="icon_dark_gray">#7B7779</color>
+    <color name="spinner_cover_background">#2E2A2B</color>
+    <color name="spinner_dropdown_background">#4A4547</color>
 </resources>

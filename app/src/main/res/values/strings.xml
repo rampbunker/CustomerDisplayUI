@@ -16,7 +16,14 @@
     <string name="settings_in_rotation">В ротации</string>
     <string name="settings_other">Остальные</string>
     <string name="settings_help_hint">Помощь</string>
+    <string-array name="intervals">
+        <item>5 секунд</item>
+        <item>10 секунд</item>
+        <item>15 секунд</item>
+        <item>25 секунд</item>
+        <item>1 минута</item>
+    </string-array>
 
-
+    <!--Customer display screen-->
     <string name="customer_display_text_placeholder">Добро пожаловать</string>
 </resources>
