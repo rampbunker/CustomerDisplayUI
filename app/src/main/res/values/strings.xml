@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Дисплей покупателя</string>
-    <string name="welcome_message">Добро пожаловать!</string>
 
     <!--Start screen-->
     <string name="start_title">Экран покупателя</string>
@@ -14,7 +13,6 @@
     <string name="settings_empty_text">Подключите ваш USB-накопитель  с изображениями к Evotor Power и добавьте их в приложение. Для корректного отображения файлы должны иметь соотношение сторон 600 х 1024.\n\nИзбегайте размещения важной информации в верхней части изображения, она может быть перекрыта сервисными текстами «Экрана покупателя».</string>
     <string name="settings_delay">Задержка между слайдами</string>
     <string name="settings_in_rotation">В ротации</string>
-    <string name="settings_other">Остальные</string>
     <string name="settings_help_hint">Помощь</string>
     <string-array name="intervals">
         <item>5 секунд</item>
