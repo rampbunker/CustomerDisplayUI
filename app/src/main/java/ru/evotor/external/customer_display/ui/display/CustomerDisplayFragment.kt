@@ -1,14 +1,12 @@
 package ru.evotor.external.customer_display.ui.display
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import com.bumptech.glide.Glide
+import com.asksira.loopingviewpager.LoopingViewPager
 import dagger.android.support.DaggerFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -27,6 +25,8 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     @Inject
     lateinit var picturesRepository: PicturesRepository
+    private lateinit var slideshowViewPager: LoopingViewPager
+    private var slideshowAdapter: InfiniteSlideshowAdapter? = null
     private val disposable = CompositeDisposable()
     private lateinit var animUpOut: Animation
     lateinit var animScaleIn: Animation
@@ -40,23 +40,14 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pictureItems: List<PictureItem> = picturesRepository.loadPicturesFromRealm()
-        backgroundViewFlipper.flipInterval = 10000
-        for (pi in pictureItems) {
-            setFlipperImage(pi)
-        }
+        val pictureItems: ArrayList<PictureItem> = picturesRepository.loadPicturesFromRealm()
         animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
         animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
-        backgroundViewFlipper.startFlipping()
-    }
 
-    private fun setFlipperImage(pictureItem: PictureItem) {
-        val flipperImageView = ImageView(context)
-        flipperImageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        Glide.with(requireContext())
-            .load(Uri.parse(pictureItem.uriString))
-            .into(flipperImageView)
-        backgroundViewFlipper.addView(flipperImageView)
+
+        slideshowViewPager = view.findViewById(R.id.slideshowViewPager) as LoopingViewPager
+        slideshowAdapter = InfiniteSlideshowAdapter(pictureItems, true)
+        slideshowViewPager.adapter = slideshowAdapter
     }
 
     override fun onStart() {
@@ -92,7 +83,6 @@ class CustomerDisplayFragment : DaggerFragment() {
     override fun onStop() {
         super.onStop()
         disposable.dispose()
-        backgroundViewFlipper.stopFlipping()
 
 //        crash here
 //        dataProvider.finish()

@@ -71,7 +71,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
         val intent = Intent()
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        intent.action = Intent.ACTION_GET_CONTENT
+        intent.action = Intent.ACTION_OPEN_DOCUMENT
         startActivityForResult(
             Intent.createChooser(intent, "Select Picture"),
             PICK_IMAGE_MULTIPLE

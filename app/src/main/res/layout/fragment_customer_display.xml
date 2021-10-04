@@ -2,17 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <ViewFlipper
-        android:id="@+id/backgroundViewFlipper"
+    <com.asksira.loopingviewpager.LoopingViewPager
+        android:id="@+id/slideshowViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:autoStart="true"
-        android:inAnimation="@anim/anim_in"
-        android:outAnimation="@anim/anim_out" />
+        android:clipToPadding="false"
+        app:autoScroll="true"
+        app:isInfinite="true"
+        app:scrollInterval="5000" />
 
     <TextView
         android:id="@+id/customerDisplayText"
@@ -23,10 +24,10 @@
         android:background="@drawable/customer_display_item_background"
         android:padding="8dp"
         android:text="@string/customer_display_text_placeholder"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"
-        tools:visibility="visible"
-        tools:text="Товар с содержанием глютена, глутамата натрия, пальмового масла, сои и мармелада с майонезом" />
+        tools:text="Товар с содержанием глютена, глутамата натрия, пальмового масла, сои и мармелада с майонезом"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
