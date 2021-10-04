@@ -47,6 +47,7 @@ class CustomerDisplayFragment : DaggerFragment() {
         }
         animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
         animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
+        backgroundViewFlipper.startFlipping()
     }
 
     private fun setFlipperImage(pictureItem: PictureItem) {
@@ -60,8 +61,6 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     override fun onStart() {
         super.onStart()
-        backgroundViewFlipper.startFlipping()
-
         dataProvider.init(DEVICE_COLUMNS, DEVICE_ROWS)
         dataProvider.clearDisplayEventStream
             .observeOn(AndroidSchedulers.mainThread())
