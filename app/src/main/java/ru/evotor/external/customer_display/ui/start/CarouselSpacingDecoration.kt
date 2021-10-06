@@ -2,9 +2,13 @@ package ru.evotor.external.customer_display.ui.start
 
 import android.graphics.Rect
 import android.view.View
+import androidx.annotation.Px
 import androidx.recyclerview.widget.RecyclerView
 
-class BoundsOffsetDecoration : RecyclerView.ItemDecoration() {
+
+class CarouselSpacingDecoration(@Px private val innerSpacing: Int) :
+    RecyclerView.ItemDecoration() {
+
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
@@ -12,14 +16,9 @@ class BoundsOffsetDecoration : RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        val itemPosition = parent.getChildAdapterPosition(view)
-        val itemWidth = view.layoutParams.width
-        val offset = (parent.width - itemWidth) / 2
 
-        if (itemPosition == 0) {
-            outRect.left = offset
-        } else if (itemPosition == state.itemCount - 1) {
-            outRect.right = offset
-        }
+        val itemPosition = parent.getChildAdapterPosition(view)
+        outRect.left = if (itemPosition == 0) 0 else innerSpacing / 2
+        outRect.right = if (itemPosition == state.itemCount - 1) 0 else innerSpacing / 2
     }
 }

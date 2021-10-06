@@ -11,7 +11,11 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_start.*
 import ru.evotor.external.customer_display.R
@@ -25,7 +29,9 @@ class StartFragment : DaggerFragment() {
     @Inject
     lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
-    private val startGalleryAdapter = StartGalleryAdapter()
+    private lateinit var carouselLayoutManager: LinearLayoutManager
+    private lateinit var carouselAdapter: CarouselAdapter
+    private lateinit var snapHelper: SnapHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,16 +46,37 @@ class StartFragment : DaggerFragment() {
         if (picturesRepository.isInRotationEmpty()) {
             setTextWithLinkForEmptyGallery()
             start_empty_gallery_hint_view.isVisible = true
-            startGalleryRV.isVisible = false
+            carouselRV.isVisible = false
         } else {
             start_empty_gallery_hint_view.isVisible = false
-            startGalleryRV.isVisible = true
-            startGalleryAdapter.bindPictures(picturesRepository.loadPicturesFromRealm())
-            startGalleryRV?.apply {
-                layoutManager = CenterZoomLayoutManager(requireContext())
-                adapter = startGalleryAdapter
-                addItemDecoration(BoundsOffsetDecoration())
+            carouselRV.isVisible = true
+            val carouselPictures = picturesRepository.loadPicturesFromRealm()
+            carouselLayoutManager = ScaleLayoutManager(requireContext())
+            carouselAdapter = CarouselAdapter(carouselPictures)
+            snapHelper = PagerSnapHelper()
+
+            carouselRV?.apply {
+                layoutManager = carouselLayoutManager
+                adapter = carouselAdapter
+                setItemViewCacheSize(4)
+                val spacing = 20
+                addItemDecoration(CarouselSpacingDecoration(spacing))
+                addItemDecoration(CarouselBoundsDecoration())
             }
+            snapHelper.attachToRecyclerView(carouselRV)
+            initRecyclerViewPosition(0)
+        }
+    }
+
+    private fun initRecyclerViewPosition(position: Int) {
+        carouselLayoutManager.scrollToPosition(position)
+        carouselRV.doOnPreDraw {
+            val targetView =
+                carouselLayoutManager.findViewByPosition(position) ?: return@doOnPreDraw
+            val distanceToFinalSnap =
+                snapHelper.calculateDistanceToFinalSnap(carouselLayoutManager, targetView)
+                    ?: return@doOnPreDraw
+            carouselLayoutManager.scrollToPositionWithOffset(position, -distanceToFinalSnap[0])
         }
     }
 

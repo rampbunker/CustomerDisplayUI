@@ -63,9 +63,6 @@ dependencies {
     //infinite slideshow
     implementation 'com.asksira.android:loopingviewpager:1.4.1'
 
-    //carousel
-    implementation 'org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.0.2'
-
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -6,6 +6,21 @@
     android:background="@color/background"
     tools:context=".ui.start.StartFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/carouselRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="220dp"
+        android:overScrollMode="never"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/start_button_start_customer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startToolbar"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/start_carousel_item"
+        tools:orientation="horizontal" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/startToolbar"
         android:layout_width="match_parent"
@@ -58,15 +73,15 @@
             android:text="@string/start_empty_text" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/startGalleryRV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/start_button_start_customer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startToolbar" />
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/startGalleryRV"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:overScrollMode="never"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/start_button_start_customer"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/startToolbar" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
