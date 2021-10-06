@@ -10,7 +10,7 @@
         android:id="@+id/carouselRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="150dp"
         android:overScrollMode="never"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/start_button_start_customer"

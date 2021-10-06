@@ -43,8 +43,6 @@ class CustomerDisplayFragment : DaggerFragment() {
         val pictureItems: ArrayList<PictureItem> = picturesRepository.loadPicturesFromRealm()
         animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
         animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
-
-
         slideshowViewPager = view.findViewById(R.id.slideshowViewPager) as LoopingViewPager
         slideshowAdapter = InfiniteSlideshowAdapter(pictureItems, true)
         slideshowViewPager.adapter = slideshowAdapter
