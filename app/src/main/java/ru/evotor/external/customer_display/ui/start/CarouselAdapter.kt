@@ -1,6 +1,5 @@
 package ru.evotor.external.customer_display.ui.start
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import ru.evotor.external.customer_display.R
-import ru.evotor.external.customer_display.repository.PictureItem
+import ru.evotor.external.customer_display.repository.PictureItemNew
 
-class CarouselAdapter(private val images: List<PictureItem>) :
+class CarouselAdapter(private val images: List<PictureItemNew>) :
     RecyclerView.Adapter<CarouselAdapter.VH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -38,9 +37,9 @@ class CarouselAdapter(private val images: List<PictureItem>) :
             RoundedCornersTransformation(8, 0)
         )
 
-        fun setData(picture: PictureItem) {
+        fun setData(picture: PictureItemNew) {
             Glide.with(itemView.context)
-                .load(Uri.parse(picture.uriString))
+                .load(picture.bitmap)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.ic_empty_gallery)

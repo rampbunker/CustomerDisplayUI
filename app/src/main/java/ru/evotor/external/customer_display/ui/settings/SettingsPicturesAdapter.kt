@@ -1,6 +1,5 @@
 package ru.evotor.external.customer_display.ui.settings
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +10,18 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.settings_pictures_rv_item.view.*
 import ru.evotor.external.customer_display.R
-import ru.evotor.external.customer_display.repository.PictureItem
+import ru.evotor.external.customer_display.repository.PictureItemNew
 
 
-class SettingsPicturesAdapter(private val clickListener: (PictureItem) -> Unit) :
+class SettingsPicturesAdapter(private val clickListener: (PictureItemNew) -> Unit) :
     RecyclerView.Adapter<SettingsPicturesAdapter.SettingsPicturesViewHolder>() {
-    private var dataset = ArrayList<PictureItem>()
+    private var dataset = ArrayList<PictureItemNew>()
 
 
     override fun getItemCount(): Int =
         dataset.size
 
-    fun bindPictures(newPictures: ArrayList<PictureItem>) {
+    fun bindPictures(newPictures: ArrayList<PictureItemNew>) {
         dataset = newPictures
         notifyDataSetChanged()
     }
@@ -47,10 +46,10 @@ class SettingsPicturesAdapter(private val clickListener: (PictureItem) -> Unit) 
         private val picture by lazy { view.findViewById<ImageView>(R.id.settings_gallery_picture) }
         private val fileName by lazy { view.findViewById<TextView>(R.id.settingsGalleryFileName) }
 
-        fun setData(pictureItem: PictureItem) {
-            fileName.text = pictureItem.fileName
+        fun setData(pictureItem: PictureItemNew) {
+            fileName.text = pictureItem.filename
             Glide.with(itemView.context)
-                .load(Uri.parse(pictureItem.uriString))
+                .load(pictureItem.bitmap)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.ic_empty_gallery)
                 .fallback(R.drawable.ic_empty_gallery)

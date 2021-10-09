@@ -43,14 +43,14 @@ class StartFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         mainActivity.setSupportActionBar(startToolbar)
-        if (picturesRepository.isInRotationEmpty()) {
+        if (picturesRepository.isPicturesDirectoryEmpty()) {
             setTextWithLinkForEmptyGallery()
             start_empty_gallery_hint_view.isVisible = true
             carouselRV.isVisible = false
         } else {
             start_empty_gallery_hint_view.isVisible = false
             carouselRV.isVisible = true
-            val carouselPictures = picturesRepository.loadPicturesFromRealm()
+            val carouselPictures = picturesRepository.getAllPicturesFromFile()
             carouselLayoutManager = ScaleLayoutManager(requireContext())
             carouselAdapter = CarouselAdapter(carouselPictures)
             snapHelper = PagerSnapHelper()
