@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
 import android.provider.OpenableColumns
-import io.realm.Realm
 import ru.evotor.external.customer_display.ui.settings.SettingsFragment
 import java.io.File
 import javax.inject.Inject
@@ -15,8 +14,6 @@ import javax.inject.Singleton
 
 @Singleton
 class PicturesRepository @Inject constructor(private val appContext: Context) {
-
-    private var realm: Realm? = null
 
 //    fun createPictureItemFromUri(uri: Uri): PictureItem {
 //        val pictureItem = PictureItem()
