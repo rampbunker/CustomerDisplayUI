@@ -1,9 +1,6 @@
 package ru.evotor.external.customer_display.ui.settings
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.*
@@ -21,8 +18,6 @@ import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.OnBackPressedListener
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import javax.inject.Inject
 
 
@@ -146,74 +141,23 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                 val count = data.clipData!!.itemCount
                 for (i in 0 until count) {
                     val imageUri = data.clipData!!.getItemAt(i).uri
-                    val pictureItem = createPictureItemFromUri(imageUri)
+                    val pictureItem = picturesRepository.createPictureItemFromUri(imageUri)
                     pictureItems.add(pictureItem)
                 }
             } else {
                 val imageUri = data.data
                 if (imageUri != null) {
-                    val pictureItem = createPictureItemFromUri(imageUri)
+                    val pictureItem = picturesRepository.createPictureItemFromUri(imageUri)
                     pictureItems.add(pictureItem)
                 }
             }
         }
         for (item in pictureItems) {
-            savePictureToFile(item)
+            picturesRepository.savePictureToFile(item)
         }
         if (pictureItems.isNotEmpty()) {
             toggleHelpVisibility(SettingsVisibilityState.SHOW_SETTINGS)
             settingsPicturesAdapter.bindPictures(picturesRepository.loadAllPicturesFromFile())
-        }
-    }
-
-    private fun createPictureItemFromUri(uri: Uri): PictureItem {
-        val source = ImageDecoder.createSource(
-            requireContext().contentResolver,
-            uri
-        )
-        val bitmap = ImageDecoder.decodeBitmap(source)
-        val fileName = picturesRepository.getFileNameFromUri(uri)
-        return PictureItem(fileName, bitmap)
-    }
-
-    private fun savePictureToFile(pictureItem: PictureItem) {
-        //путь к папке с картинками
-        val directoryPath = File(
-            requireContext().getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), ALBUM_DIRECTORY_NAME
-        )
-        //создать папку, если еще не создана
-        if (!directoryPath.exists()) {
-            directoryPath.mkdirs()
-        }
-        //путь к конкретной картинке
-        val pictureFilePath = File(directoryPath, pictureItem.filename)
-        var fileOutputStream: FileOutputStream? = null
-        try {
-            //сохраняем картинку
-            fileOutputStream = FileOutputStream(pictureFilePath)
-            pictureItem.bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
-            fileOutputStream.flush()
-            fileOutputStream.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(requireContext(), "Failed: " + e.message, Toast.LENGTH_LONG).show()
-        } finally {
-            if (fileOutputStream != null) {
-                try {
-                    Toast.makeText(
-                        requireContext(),
-                        "Write to <" + pictureFilePath.absolutePath + "> successfully!",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    fileOutputStream.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            } else {
-                Toast.makeText(requireContext(), "Failed to write!", Toast.LENGTH_LONG).show()
-            }
         }
     }
 
@@ -230,7 +174,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                     if (pictureFilePath.name.equals(pictureItem.filename)) {
                         pictureFilePath.delete()
                         if (picturesRepository.isPicturesDirectoryEmpty()) {
-                            toggleHelpVisibility(SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP)
+                            toggleHelpVisibility(SettingsFragment.SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP)
                         }
                         Toast.makeText(requireContext(), "Picture deleted", Toast.LENGTH_LONG)
                             .show()
@@ -262,7 +206,6 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
         const val HELP_MENU_ITEM_ID = 2
         const val PICK_IMAGE_MULTIPLE = 1
         const val ALBUM_DIRECTORY_NAME = "pictures"
-
     }
 
     enum class SettingsVisibilityState {
