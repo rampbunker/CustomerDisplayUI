@@ -122,4 +122,25 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
             }
         }
     }
+
+    fun deletePictureFromFile(pictureItem: PictureItem) {
+        val directoryPath = File(
+            appContext.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES
+            ), SettingsFragment.ALBUM_DIRECTORY_NAME
+        )
+        if (directoryPath.exists()) {
+            if (directoryPath.list()!!.isNotEmpty()) {
+                for (i in directoryPath.list()!!) {
+                    val pictureFilePath = File(directoryPath, i)
+                    if (pictureFilePath.name.equals(pictureItem.filename)) {
+                        pictureFilePath.delete()
+                        Toast.makeText(appContext, "Picture deleted", Toast.LENGTH_LONG)
+                            .show()
+                        return
+                    }
+                }
+            }
+        }
+    }
 }

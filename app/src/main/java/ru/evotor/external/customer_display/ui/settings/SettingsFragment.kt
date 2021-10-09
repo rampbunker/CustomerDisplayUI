@@ -2,9 +2,7 @@ package ru.evotor.external.customer_display.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -17,7 +15,6 @@ import ru.evotor.external.customer_display.repository.PictureItem
 import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.OnBackPressedListener
-import java.io.File
 import javax.inject.Inject
 
 
@@ -26,7 +23,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
     @Inject
     lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
-    private val settingsPicturesAdapter = SettingsPicturesAdapter { deletePictureFromFile(it) }
+    private val settingsPicturesAdapter = SettingsPicturesAdapter { deletePicture(it) }
     private var pictureItems: MutableList<PictureItem> = ArrayList()
     private var visibilityState: SettingsVisibilityState =
         SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP
@@ -161,39 +158,11 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun deletePictureFromFile(pictureItem: PictureItem) {
-        val directoryPath = File(
-            requireContext().getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), ALBUM_DIRECTORY_NAME
-        )
-        if (directoryPath.exists()) {
-            if (directoryPath.list()!!.isNotEmpty()) {
-                for (i in directoryPath.list()!!) {
-                    val pictureFilePath = File(directoryPath, i)
-                    if (pictureFilePath.name.equals(pictureItem.filename)) {
-                        pictureFilePath.delete()
-                        if (picturesRepository.isPicturesDirectoryEmpty()) {
-                            toggleHelpVisibility(SettingsFragment.SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP)
-                        }
-                        Toast.makeText(requireContext(), "Picture deleted", Toast.LENGTH_LONG)
-                            .show()
-                        return
-                    }
-                }
-            }
-            Toast.makeText(
-                requireContext(),
-                "Delete failed:list of files is empty",
-                Toast.LENGTH_LONG
-            ).show()
-            return
+    private fun deletePicture(pictureItem: PictureItem) {
+        picturesRepository.deletePictureFromFile(pictureItem)
+        if (picturesRepository.isPicturesDirectoryEmpty()) {
+            toggleHelpVisibility(SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP)
         }
-        Toast.makeText(
-            requireContext(),
-            "Delete failed: directory does not exist",
-            Toast.LENGTH_LONG
-        ).show()
     }
 
     override fun onBackPressed() {
