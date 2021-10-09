@@ -50,7 +50,7 @@ class StartFragment : DaggerFragment() {
         } else {
             start_empty_gallery_hint_view.isVisible = false
             carouselRV.isVisible = true
-            val carouselPictures = picturesRepository.getAllPicturesFromFile()
+            val carouselPictures = picturesRepository.loadAllPicturesFromFile()
             carouselLayoutManager = ScaleLayoutManager(requireContext())
             carouselAdapter = CarouselAdapter(carouselPictures)
             snapHelper = PagerSnapHelper()

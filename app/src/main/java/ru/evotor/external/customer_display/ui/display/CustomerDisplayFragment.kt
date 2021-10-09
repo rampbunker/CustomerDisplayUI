@@ -40,7 +40,7 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pictureItems: ArrayList<PictureItemNew> = picturesRepository.getAllPicturesFromFile()
+        val pictureItems: ArrayList<PictureItemNew> = picturesRepository.loadAllPicturesFromFile()
         animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
         animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
         slideshowViewPager = view.findViewById(R.id.slideshowViewPager) as LoopingViewPager

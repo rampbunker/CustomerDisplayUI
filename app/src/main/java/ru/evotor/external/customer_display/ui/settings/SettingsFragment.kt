@@ -32,8 +32,6 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
     lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter { deletePictureFromFile(it) }
-
-    //    private var pictureItems: MutableList<PictureItem> = ArrayList()
     private var pictureItemsNew: MutableList<PictureItemNew> = ArrayList()
     private var visibilityState: SettingsVisibilityState =
         SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP
@@ -74,7 +72,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                 )
             )
         }
-        settingsPicturesAdapter.bindPictures(picturesRepository.getAllPicturesFromFile())
+        settingsPicturesAdapter.bindPictures(picturesRepository.loadAllPicturesFromFile())
     }
 
     private fun startPickImagesScreen() {
@@ -149,40 +147,23 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                 for (i in 0 until count) {
                     val imageUri = data.clipData!!.getItemAt(i).uri
                     val pictureItemNew = createPictureItemNewFromUri(imageUri)
-//                    savePictureToFile(pictureItemNew)
-
                     pictureItemsNew.add(pictureItemNew)
-
-//                    pictureItems.add(
-//                        picturesRepository.createPictureItemFromUri(
-//                            imageUri
-//                        )
-//                    )
                 }
             } else {
                 val imageUri = data.data
-
                 if (imageUri != null) {
                     val pictureItemNew = createPictureItemNewFromUri(imageUri)
-//                    savePictureToFile(pictureItemNew)
                     pictureItemsNew.add(pictureItemNew)
-//                    pictureItems.add(
-//                        picturesRepository.createPictureItemFromUri(
-//                            imageUri
-//                        )
-//                    )
                 }
             }
         }
         for (item in pictureItemsNew) {
             savePictureToFile(item)
-//            picturesRepository.savePictureToRealm(item)
         }
         if (pictureItemsNew.isNotEmpty()) {
             toggleHelpVisibility(SettingsVisibilityState.SHOW_SETTINGS)
-            settingsPicturesAdapter.bindPictures(picturesRepository.getAllPicturesFromFile())
+            settingsPicturesAdapter.bindPictures(picturesRepository.loadAllPicturesFromFile())
         }
-
     }
 
     private fun createPictureItemNewFromUri(uri: Uri): PictureItemNew {
@@ -236,7 +217,6 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-
     private fun deletePictureFromFile(pictureItemNew: PictureItemNew) {
         val directoryPath = File(
             requireContext().getExternalFilesDir(
@@ -271,13 +251,6 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
             Toast.LENGTH_LONG
         ).show()
     }
-
-//    private fun deletePictureItem(pictureItem: PictureItem) {
-//        picturesRepository.deleteFromRealm(pictureItem)
-//        if (picturesRepository.isRealmEmpty()) {
-//            toggleHelpVisibility(SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP)
-//        }
-//    }
 
     override fun onBackPressed() {
         if (visibilityState == SettingsVisibilityState.CLICKED_HELP_SHOW_HELP) {
