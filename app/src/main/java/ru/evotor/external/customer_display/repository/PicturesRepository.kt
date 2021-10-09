@@ -19,6 +19,13 @@ import javax.inject.Singleton
 @Singleton
 class PicturesRepository @Inject constructor(private val appContext: Context) {
 
+    //путь к папке с картинками
+    private val directoryPath = File(
+        appContext.getExternalFilesDir(
+            Environment.DIRECTORY_PICTURES
+        ), SettingsFragment.ALBUM_DIRECTORY_NAME
+    )
+
     private fun getFileNameFromUri(uri: Uri): String {
         var result = ""
         if (uri.scheme.equals("content")) {
@@ -53,21 +60,11 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
     }
 
     fun isPicturesDirectoryEmpty(): Boolean {
-        val directoryPath = File(
-            appContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), SettingsFragment.ALBUM_DIRECTORY_NAME
-        )
         return !(directoryPath.exists() && directoryPath.list()!!.isNotEmpty())
     }
 
     fun loadAllPicturesFromFile(): ArrayList<PictureItem> {
         val pictureItemsArray: ArrayList<PictureItem> = ArrayList()
-        val directoryPath = File(
-            appContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), SettingsFragment.ALBUM_DIRECTORY_NAME
-        )
         if (directoryPath.exists()) {
             if (directoryPath.list()!!.isNotEmpty()) {
                 directoryPath.list()!!.forEach { i ->
@@ -83,12 +80,6 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
     }
 
     fun savePictureToFile(pictureItem: PictureItem) {
-        //путь к папке с картинками
-        val directoryPath = File(
-            appContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), SettingsFragment.ALBUM_DIRECTORY_NAME
-        )
         //создать папку, если еще не создана
         if (!directoryPath.exists()) {
             directoryPath.mkdirs()
@@ -124,11 +115,6 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
     }
 
     fun deletePictureFromFile(pictureItem: PictureItem) {
-        val directoryPath = File(
-            appContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), SettingsFragment.ALBUM_DIRECTORY_NAME
-        )
         if (directoryPath.exists()) {
             if (directoryPath.list()!!.isNotEmpty()) {
                 for (i in directoryPath.list()!!) {
