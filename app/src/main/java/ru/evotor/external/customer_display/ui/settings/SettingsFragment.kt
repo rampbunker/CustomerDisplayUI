@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.evotor.external.customer_display.R
-import ru.evotor.external.customer_display.repository.PictureItemNew
+import ru.evotor.external.customer_display.repository.PictureItem
 import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.ui.MainActivity
 import ru.evotor.external.customer_display.ui.OnBackPressedListener
@@ -32,7 +32,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
     lateinit var picturesRepository: PicturesRepository
     private val mainActivity by lazy { activity as MainActivity }
     private val settingsPicturesAdapter = SettingsPicturesAdapter { deletePictureFromFile(it) }
-    private var pictureItemsNew: MutableList<PictureItemNew> = ArrayList()
+    private var pictureItems: MutableList<PictureItem> = ArrayList()
     private var visibilityState: SettingsVisibilityState =
         SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP
 
@@ -146,37 +146,37 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
                 val count = data.clipData!!.itemCount
                 for (i in 0 until count) {
                     val imageUri = data.clipData!!.getItemAt(i).uri
-                    val pictureItemNew = createPictureItemNewFromUri(imageUri)
-                    pictureItemsNew.add(pictureItemNew)
+                    val pictureItem = createPictureItemFromUri(imageUri)
+                    pictureItems.add(pictureItem)
                 }
             } else {
                 val imageUri = data.data
                 if (imageUri != null) {
-                    val pictureItemNew = createPictureItemNewFromUri(imageUri)
-                    pictureItemsNew.add(pictureItemNew)
+                    val pictureItem = createPictureItemFromUri(imageUri)
+                    pictureItems.add(pictureItem)
                 }
             }
         }
-        for (item in pictureItemsNew) {
+        for (item in pictureItems) {
             savePictureToFile(item)
         }
-        if (pictureItemsNew.isNotEmpty()) {
+        if (pictureItems.isNotEmpty()) {
             toggleHelpVisibility(SettingsVisibilityState.SHOW_SETTINGS)
             settingsPicturesAdapter.bindPictures(picturesRepository.loadAllPicturesFromFile())
         }
     }
 
-    private fun createPictureItemNewFromUri(uri: Uri): PictureItemNew {
+    private fun createPictureItemFromUri(uri: Uri): PictureItem {
         val source = ImageDecoder.createSource(
             requireContext().contentResolver,
             uri
         )
         val bitmap = ImageDecoder.decodeBitmap(source)
         val fileName = picturesRepository.getFileNameFromUri(uri)
-        return PictureItemNew(fileName, bitmap)
+        return PictureItem(fileName, bitmap)
     }
 
-    private fun savePictureToFile(pictureItemNew: PictureItemNew) {
+    private fun savePictureToFile(pictureItem: PictureItem) {
         //путь к папке с картинками
         val directoryPath = File(
             requireContext().getExternalFilesDir(
@@ -188,12 +188,12 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
             directoryPath.mkdirs()
         }
         //путь к конкретной картинке
-        val pictureFilePath = File(directoryPath, pictureItemNew.filename)
+        val pictureFilePath = File(directoryPath, pictureItem.filename)
         var fileOutputStream: FileOutputStream? = null
         try {
             //сохраняем картинку
             fileOutputStream = FileOutputStream(pictureFilePath)
-            pictureItemNew.bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+            pictureItem.bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
             fileOutputStream.flush()
             fileOutputStream.close()
         } catch (e: Exception) {
@@ -217,7 +217,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun deletePictureFromFile(pictureItemNew: PictureItemNew) {
+    private fun deletePictureFromFile(pictureItem: PictureItem) {
         val directoryPath = File(
             requireContext().getExternalFilesDir(
                 Environment.DIRECTORY_PICTURES
@@ -227,7 +227,7 @@ class SettingsFragment : DaggerFragment(), OnBackPressedListener {
             if (directoryPath.list()!!.isNotEmpty()) {
                 for (i in directoryPath.list()!!) {
                     val pictureFilePath = File(directoryPath, i)
-                    if (pictureFilePath.name.equals(pictureItemNew.filename)) {
+                    if (pictureFilePath.name.equals(pictureItem.filename)) {
                         pictureFilePath.delete()
                         if (picturesRepository.isPicturesDirectoryEmpty()) {
                             toggleHelpVisibility(SettingsVisibilityState.EMPTY_GALLERY_SHOW_HELP)

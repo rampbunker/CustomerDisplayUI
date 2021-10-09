@@ -47,8 +47,8 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
         return !(directoryPath.exists() && directoryPath.list()!!.isNotEmpty())
     }
 
-    fun loadAllPicturesFromFile(): ArrayList<PictureItemNew> {
-        val pictureItemsNewArray: ArrayList<PictureItemNew> = ArrayList()
+    fun loadAllPicturesFromFile(): ArrayList<PictureItem> {
+        val pictureItemsArray: ArrayList<PictureItem> = ArrayList()
         val directoryPath = File(
             appContext.getExternalFilesDir(
                 Environment.DIRECTORY_PICTURES
@@ -61,10 +61,10 @@ class PicturesRepository @Inject constructor(private val appContext: Context) {
                     val bmOptions = BitmapFactory.Options()
                     var bitmap = BitmapFactory.decodeFile(pictureFilePath.absolutePath, bmOptions)
                     bitmap = Bitmap.createBitmap(bitmap!!)
-                    pictureItemsNewArray.add(PictureItemNew(pictureFilePath.name, bitmap))
+                    pictureItemsArray.add(PictureItem(pictureFilePath.name, bitmap))
                 }
             }
         }
-        return pictureItemsNewArray
+        return pictureItemsArray
     }
 }

@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_customer_display.*
 import ru.evotor.external.customer_display.R
-import ru.evotor.external.customer_display.repository.PictureItemNew
+import ru.evotor.external.customer_display.repository.PictureItem
 import ru.evotor.external.customer_display.repository.PicturesRepository
 import ru.evotor.external.customer_display.service.CustomerDisplayDataProvider
 import javax.inject.Inject
@@ -40,7 +40,7 @@ class CustomerDisplayFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pictureItems: ArrayList<PictureItemNew> = picturesRepository.loadAllPicturesFromFile()
+        val pictureItems: ArrayList<PictureItem> = picturesRepository.loadAllPicturesFromFile()
         animScaleIn = AnimationUtils.loadAnimation(context, R.anim.anim_scale_in)
         animUpOut = AnimationUtils.loadAnimation(context, R.anim.anim_up_out)
         slideshowViewPager = view.findViewById(R.id.slideshowViewPager) as LoopingViewPager

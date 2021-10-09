@@ -7,14 +7,14 @@ import android.widget.ImageView
 import com.asksira.loopingviewpager.LoopingPagerAdapter
 import com.bumptech.glide.Glide
 import ru.evotor.external.customer_display.R
-import ru.evotor.external.customer_display.repository.PictureItemNew
+import ru.evotor.external.customer_display.repository.PictureItem
 import java.util.*
 
 
 class InfiniteSlideshowAdapter(
-    itemList: ArrayList<PictureItemNew>,
+    itemList: ArrayList<PictureItem>,
     isInfinite: Boolean
-) : LoopingPagerAdapter<PictureItemNew>(itemList, isInfinite) {
+) : LoopingPagerAdapter<PictureItem>(itemList, isInfinite) {
 
     override fun inflateView(
         viewType: Int,
